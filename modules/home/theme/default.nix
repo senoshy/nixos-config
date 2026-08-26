@@ -43,6 +43,11 @@ in {
       package = pkgs.adw-gtk3;
     };
 
+    gtk.iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+
     home.packages = with pkgs; [
       glib
       gsettings-desktop-schemas
@@ -61,7 +66,6 @@ in {
     ];
 
     gtk.gtk3.bookmarks = [
-      "file://${config.xdg.userDirs.desktop}"
       "file://${config.xdg.userDirs.documents}"
       "file://${config.xdg.userDirs.download}"
       "file://${config.xdg.userDirs.videos}"

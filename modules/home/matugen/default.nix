@@ -40,15 +40,6 @@ in {
 
     home.packages = with pkgs; [
       (inputs.matugen.packages.${pkgs.stdenv.hostPlatform.system}.default)
-      (symlinkJoin {
-        name = "${papirus-folders.name}-wrapped";
-        paths = [papirus-folders];
-        nativeBuildInputs = [makeWrapper];
-        postBuild = ''
-          wrapProgram $out/bin/papirus-folders \
-            --prefix PATH : ${lib.getBin gtk3}/bin
-        '';
-      })
     ];
 
     home.file = {
@@ -59,10 +50,6 @@ in {
     };
 
     home.file."${matugenAbsPath}/kvantum-colors.svg".source = ./templates/kvantum-colors.svg;
-    home.file."${matugenAbsPath}/papirus-color".source = ./templates/papirus-color;
-
-    home.file."${config.home.homeDirectory}/.config/matugen/scripts/papirus-sync.sh".source =
-      ./scripts/papirus-sync.sh;
 
     home.file."${config.home.homeDirectory}/.config/matugen/websites/youtube.css".source = ./templates/websites/youtube.css;
     home.file."${config.home.homeDirectory}/.config/matugen/websites/bitwarden.css".source = ./templates/websites/bitwarden.css;
@@ -83,7 +70,7 @@ in {
       [templates.kitty]
       input_path = '~/.config/matugen/templates/kitty-colors.conf'
       output_path = '~/.config/kitty/theme/Matugen.conf'
-      post_hook = 'kitty +kitten themes --reload-in=all Matugen'
+      post_hook = 'pkill -SIGUSR1 kitty || true'
 
       [templates.vencord]
       input_path = "~/.config/matugen/templates/midnight-discord.css"
@@ -148,11 +135,6 @@ in {
       [templates.firefox-website-colors]
       input_path = '~/.config/matugen/templates/firefox-colors.css'
       output_path = '~/.config/matugen/websites/colors.css'
-
-      [templates.papirus-folders]
-      input_path = '~/.config/matugen/templates/papirus-color'
-      output_path = '~/.cache/matugen/papirus-color'
-      post_hook = 'bash ~/.config/matugen/scripts/papirus-sync.sh'
 
     '';
   };
