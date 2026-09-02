@@ -1,0 +1,17 @@
+abbr add gs='git status'
+abbr add ga='git add'
+abbr add gc='git commit'
+abbr add gp='git push'
+
+(( $+commands[eza] ))       && abbr ls='eza --icons'
+(( $+commands[zoxide] ))    && abbr cd='z'
+(( $+commands[nix] ))       && {
+  abbr nf='nix flake update'
+  abbr nb='sudo nixos-rebuild switch --flake'
+  abbr hm='home-manager -b bak switch --flake'
+}
+
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+
+setopt HIST_IGNORE_DUPS SHARE_HISTORY

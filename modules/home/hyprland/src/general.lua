@@ -1,4 +1,13 @@
-local colors = dofile(os.getenv("HOME") .. "/.config/hypr/colors.lua")
+local path = os.getenv("HOME") .. "/.config/hypr/colors.lua"
+local colors
+
+local file_colors = io.open(path, "r")
+if not file_colors then
+  colors = dofile(os.getenv("HOME") .. "/.config/hypr/colors_fallback.lua")
+else
+  file_colors:close()
+  colors = dofile(path)
+end
 
 hl.config({
   input = {

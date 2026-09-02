@@ -14,7 +14,7 @@ in {
         "nix"
       ];
       extraPackages = with pkgs; [
-        nix-d
+        nixd
       ];
       userSettings = {
         ui_font_size = 14;

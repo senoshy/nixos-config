@@ -13,8 +13,10 @@ in {
   config = lib.mkIf cfg.enable {
     programs.waybar = {
       enable = true;
-      settings = import ./src/config.jsonc;
-      style = import ./src/style.css;
+      settings = {
+        mainBar = builtins.fromJSON (builtins.readFile ./src/config.json);
+      };
+      style = ./src/style.css;
     };
   };
 }

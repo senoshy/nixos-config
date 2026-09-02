@@ -23,6 +23,7 @@ in {
     ./templates/nvim.nix
     ./templates/kvantum.nix
     ./templates/firefox-colors.nix
+    ./templates/spicetify.nix
   ];
 
   options.home.matugen = {
@@ -39,7 +40,7 @@ in {
     };
 
     home.packages = with pkgs; [
-      (inputs.matugen.packages.${pkgs.stdenv.hostPlatform.system}.default)
+      #(inputs.matugen.packages.${pkgs.stdenv.hostPlatform.system}.default)
     ];
 
     home.file = {
@@ -135,6 +136,11 @@ in {
       [templates.firefox-website-colors]
       input_path = '~/.config/matugen/templates/firefox-colors.css'
       output_path = '~/.config/matugen/websites/colors.css'
+
+      [templates.spicetify]
+      input_path = '~/.config/matugen/templates/spicetify-color.ini'
+      output_path = '~/.config/spicetify/Themes/matugen/color.ini'
+      post_hook = 'systemctl --user try-restart spicetify-watch || true'
 
     '';
   };

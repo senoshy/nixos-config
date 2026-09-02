@@ -5,6 +5,7 @@
   ...
 }: {
   home.packages = with pkgs; [
+    fzf
     jq
     btop
     duf

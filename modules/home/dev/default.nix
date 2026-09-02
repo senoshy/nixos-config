@@ -9,6 +9,7 @@
 in {
   imports = [
     ./vscodium.nix
+    ./zed.nix
   ];
 
   options.home.dev = {

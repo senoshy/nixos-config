@@ -24,6 +24,8 @@ in {
     home.file.".config/hypr/src/scrolling.lua".source = ./src/scrolling.lua;
     home.file.".config/hypr/src/startup.lua".source = ./src/startup.lua;
     home.file.".config/hypr/src/windowRules.lua".source = ./src/windowRules.lua;
+    home.file.".config/hypr/src/layerRules.lua".source = ./src/layerRules.lua;
+    home.file.".config/hypr/colors_fallback.lua".source = ./colors.lua;
 
     home.packages = with pkgs; [
       hyprshot

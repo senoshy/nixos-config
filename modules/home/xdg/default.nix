@@ -31,6 +31,7 @@ in {
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {
+        "inode/directory" = "thunar.desktop";
         "image/jpeg" = "com.interversehq.qView.desktop";
         "image/png" = "com.interversehq.qView.desktop";
         "image/gif" = "com.interversehq.qView.desktop";

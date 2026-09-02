@@ -10,22 +10,22 @@
         "wallpaper": "{{image}}",
         "alpha": "100",
         "colors": {
-          "color0": "{{colors.surface.dark.hex}}",
-          "color1": "",
-          "color2": "",
-          "color3": "{{colors.primary.default.hex}}",
-          "color4": "",
-          "color5": "{{colors.secondary.default.hex}}",
-          "color6": "",
-          "color7": "{{colors.surface_container_highest.default.hex}}",
-          "color8": "",
-          "color9": "",
-          "color10": "{{colors.primary.default.hex}}",
-          "color11": "",
-          "color12": "",
-          "color13": "{{colors.secondary.default.hex}}",
-          "color14": "",
-          "color15": "{{colors.on_background.default.hex}}"
+          "color0": "{{m3.surface.default.hex}}",
+          "color1": "{{m3.error.default.hex}}",
+          "color2": "{{m3.success.default.hex}}",
+          "color3": "{{m3.tertiary.default.hex}}",
+          "color4": "{{m3.primary.default.hex}}",
+          "color5": "{{m3.secondary.default.hex}}",
+          "color6": "{{m3.outline.default.hex}}",
+          "color7": "{{m3.on_surface.default.hex}}",
+          "color8": "{{m3.surface_container_high.default.hex}}",
+          "color9": "{{m3.error.default.hex}}",
+          "color10": "{{m3.success.default.hex}}",
+          "color11": "{{m3.tertiary.default.hex}}",
+          "color12": "{{m3.primary.default.hex}}",
+          "color13": "{{m3.secondary.default.hex}}",
+          "color14": "{{m3.outline.default.hex}}",
+          "color15": "{{m3.on_surface.default.hex}}"
         }
       }
     '';

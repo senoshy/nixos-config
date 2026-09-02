@@ -27,8 +27,8 @@ in {
 
     home.pointerCursor = {
       enable = true;
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
+      package = pkgs.kdePackages.breeze;
+      name = "Breeze_Light";
       size = 18;
     };
 

@@ -1,6 +1,6 @@
 {
   "layer": "top",
-  "position": "top",
+  "position": "bottom",
   "height": 30,
   "spacing": 0,
   "margin-left": 0,
@@ -13,10 +13,10 @@
     "custom/1", "clock", "custom/2"],
 
   "custom/1": {
-    "format": "[",
+    "format": "["
   },
   "custom/2": {
-    "format": "]",
+    "format": "]"
   },
   "hyprland/workspaces": {
     "format": "{icon}",
@@ -30,30 +30,30 @@
       "7": "7",
       "8": "8",
       "9": "9",
-      "10": "10",
+      "10": "10"
     },
     "active-only": false,
     "persistent-only": false,
     "on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e+1\"})' ",
-    "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e-1\"})' ",
+    "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e-1\"})' "
   },
   "hyprland/window": {
     "format": "{}",
-    "max-length": 50,
+    "max-length": 50
   },
 
   "clock": {
-    "format": "{:%a, %d, %b, %H:%M}",
+    "format": "{:%a, %d, %b, %H:%M}"
   },
-  
+
   "tray": {
-    "spacing": 8,
+    "spacing": 8
   },
-  
+
   "memory": {
     "interval": 5,
     "format": "󰍛 {}%",
-    "max-length": 10,
+    "max-length": 10
   }
 }
 

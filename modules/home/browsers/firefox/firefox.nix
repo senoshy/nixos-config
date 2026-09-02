@@ -5,7 +5,9 @@
   ...
 }: let
   cfg = config.home.browsers;
-  userJSContent = (builtins.readFile ./betterfox.js) + "\n" + (builtins.readFile ./user.js);
+  userJSContent =
+    # (builtins.readFile ./betterfox.js) + "\n" +
+    builtins.readFile ./user.js;
 
   parseUserJS = content: let
     lines = lib.splitString "\n" content;
@@ -54,7 +56,7 @@ in {
         "riu" = {
           id = 0;
           isDefault = true;
-          #settings = parseUserJS userJSContent;
+          settings = parseUserJS userJSContent;
           #userChrome =
           userContent = ''
             @import url("${config.home.homeDirectory}/.config/matugen/websites/colors.css");
