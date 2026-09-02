@@ -348,8 +348,7 @@
         "qylock": "qylock",
         "sf-mono-liga-src": "sf-mono-liga-src",
         "sops-nix": "sops-nix",
-        "spicetify-nix": "spicetify-nix",
-        "winxp-cursors": "winxp-cursors"
+        "spicetify-nix": "spicetify-nix"
       }
     },
     "rust-analyzer-src": {
@@ -517,26 +516,6 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "winxp-cursors": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1762537562,
-        "narHash": "sha256-C225S1p6fvd09mH7JllwWe9ZmmLQkJNO7P96wPHyKIA=",
-        "owner": "stdriu",
-        "repo": "winxp-cursors",
-        "rev": "55346afe87cb404a817ce9fc24d19df678cd1756",
-        "type": "github"
-      },
-      "original": {
-        "owner": "stdriu",
-        "repo": "winxp-cursors",
         "type": "github"
       }
     }
