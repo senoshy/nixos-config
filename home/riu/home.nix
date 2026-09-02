@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   imports = [
     ./modules.nix
-    ./modules
   ];
 
   home.username = "riu";
@@ -29,6 +28,7 @@
 
   home.packages = with pkgs; [
     piper
+    burpsuite
     spotify-player
     fastfetch
     onlyoffice-desktopeditors
@@ -39,6 +39,8 @@
     awww
     wl-clipboard
     zathura
+    gpu-screen-recorder
+    gpu-screen-recorder-gtk
     qt6.qtmultimedia
   ];
 

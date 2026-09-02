@@ -17,8 +17,6 @@
     ./modules
   ];
 
-  programs.starship.enable = true;
-
   documentation = {
     enable = true;
     man.enable = true;
@@ -29,6 +27,11 @@
 
   services.ratbagd.enable = true;
   services.flatpak.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   nix.settings.allow-import-from-derivation = lib.mkForce true;
@@ -51,11 +54,27 @@
     neededForUsers = true;
   };
 
+  sops.secrets.ssh_private_key = {
+    owner = config.users.users.riu.name;
+  };
+
+  sops.secrets.riu_gpg = {
+    owner = config.users.users.riu.name;
+    mode = "0600";
+  };
+
   users.users.riu = {
     hashedPasswordFile = config.sops.secrets.password_riu.path;
+    home = "/home/riu";
     isNormalUser = true;
     description = "riu";
-    extraGroups = ["networkmanager" "wheel" "video" "audio"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+      "audio"
+      "docker"
+    ];
   };
 
   environment.sessionVariables = {

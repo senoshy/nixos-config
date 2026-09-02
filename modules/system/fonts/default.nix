@@ -14,10 +14,13 @@ in {
   config = lib.mkIf cfg.enable {
     fonts.packages = with pkgs; [
       sf-mono-liga-bin
+      dosega
+      tamzen-ttf
       inconsolata
       monaspace
       nerd-fonts.jetbrains-mono
       liberation_ttf
+      plemoljp
 
       # dependencies
       noto-fonts-cjk-sans

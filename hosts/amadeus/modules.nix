@@ -14,6 +14,7 @@
     self.modules.system.sysdep
   ];
 
+  system.interface.enable = true;
   system.audio.enable = true;
   system.bluetooth.enable = true;
   system.boot.enable = true;
@@ -24,6 +25,5 @@
   system.shell.enable = true;
   system.virtualisation.enable = true;
   system.secrets.enable = true;
-  system.interface.enable = true;
   system.sysdep.enable = true;
 }

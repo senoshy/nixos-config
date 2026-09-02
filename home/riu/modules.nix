@@ -1,10 +1,20 @@
 {self, ...}: {
-  imports = [
-    "${self}/modules/home/browsers/firefox"
-    "${self}/modules/home/browsers/chromium"
-    "${self}/modules/home/xdg"
-    "${self}/modules/home/theme"
-    "${self}/modules/home/dev"
+  imports = with self.modules.home; [
+    browsers.firefox
+    browsers.chromium
+    xdg
+    theme
+    dev
+    gpg
+    ssh
+    utils
+    media
+    hyprland
+    kanshi
+    kitty
+    matugen
+    waybar
+    zsh
   ];
 
   home.theme.enable = true;
@@ -18,4 +28,6 @@
   home.kitty.enable = true;
   home.media.enable = true;
   home.dev.vscodium.enable = true;
+  home.waybar.enable = true;
+  home.zsh.enable = true;
 }
