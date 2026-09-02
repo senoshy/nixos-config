@@ -8,8 +8,9 @@
   themeDir = config.home.homeDirectory + "/.config/spicetify/Themes/matugen";
 in {
   config = lib.mkIf config.home.matugen.enable {
-    # user.css é estático (layout minimalista); fica symlinkado pelo home-manager.
-    # color.ini é gerado em runtime pelo matugen (watched via spicetify watch).
+    # user.css fica intencionalmente vazio: usamos o layout Default do Spotify
+    # para que nenhuma regra customizada possa quebrar a UI. As cores vêm do
+    # color.ini, gerado em runtime pelo matugen (watched via spicetify watch).
     home.file = {
       "${matugenAbsPath}/spicetify-color.ini".source = ./spicetify-color.ini;
       "${config.home.homeDirectory}/.config/spicetify/Themes/matugen/user.css".source =
