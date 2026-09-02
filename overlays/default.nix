@@ -26,6 +26,38 @@
     '';
   };
 
+  tamzen-ttf = prev.stdenvNoCC.mkDerivation {
+    pname = "tamzen-ttf";
+    version = "1.11.6";
+    src = prev.fetchurl {
+      url = "https://github.com/sunaku/tamzen-font/archive/refs/tags/Tamzen-1.11.6.tar.gz";
+      hash = "sha256-81FzF3+UB7t45IqTFp8Zga5clF1R/vbk7q6FwckZJXc=";
+      name = "tamzen-1.11.6.tar.gz";
+    };
+    dontConfigure = true;
+    installPhase = ''
+      mkdir -p $out/share/fonts/truetype
+      cp ttf/*.ttf $out/share/fonts/truetype/
+    '';
+  };
+
+  dosega = prev.stdenvNoCC.mkDerivation {
+    pname = "dosega";
+    version = "20150901";
+    src = prev.fetchurl {
+      url = "https://sourceforge.net/projects/dosega/files/DOSEGA-20150901.zip/download";
+      hash = "sha256-eTAwKvSU8yURozKlQnLSuT2+LMvUCeSrMWgwOAVakWk=";
+      name = "DOSEGA-20150901.zip";
+    };
+    nativeBuildInputs = [prev.unzip];
+    dontConfigure = true;
+   dontUnpack = true;
+    installPhase = ''
+      mkdir -p $out/share/fonts/truetype
+      unzip -j $src DOSEGA.ttf -d $out/share/fonts/truetype
+    '';
+  };
+
   discord = prev.discord.override {
     withVencord = true;
     commandLineArgs = "--enable-features=AcceleratedVideoEncoder,AcceleratedVideoDecodeLinuxGL,WaylandWindowDecorations --ignore-gpu-blocklist";
