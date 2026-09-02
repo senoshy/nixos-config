@@ -20,23 +20,11 @@
         system = "x86_64-linux";
         extraModules = [];
       };
-
-      salieri = lib.mkNixosConfig {
-        hostName = "salieri";
-        system = "x86_64-linux";
-        extraModules = [];
-      };
     };
 
     homeConfigurations = {
       "riu" = lib.mkHMConfig {
         homeName = "riu";
-        system = "x86_64-linux";
-        extraModules = [];
-      };
-
-      ataraxia = lib.mkHMConfig {
-        homeName = "ataraxia";
         system = "x86_64-linux";
         extraModules = [];
       };
@@ -85,7 +73,6 @@
       url = "github:Iniox/Matugen";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
 
     sf-mono-liga-src = {
       url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
