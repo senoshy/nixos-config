@@ -74,10 +74,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    winxp-cursors = {
-      url = "github:stdriu/winxp-cursors";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     sf-mono-liga-src = {
       url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
