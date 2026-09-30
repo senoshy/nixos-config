@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+hyprctl="${HYPRCTL:-$(command -v hyprctl)}"
+
+case "${1:-}" in
+  bind)
+    "$hyprctl" eval 'wsrules = wsrules or {}; for i = 1, 5 do wsrules[tostring(i)] = hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1" }) end; for i = 6, 10 do wsrules[tostring(i)] = hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" }) end'
+    ;;
+  unbind)
+    "$hyprctl" eval 'for _, r in pairs(wsrules or {}) do r:set_enabled(false) end'
+    ;;
+  *)
+    echo "usage: kanshi-workspaces <bind|unbind>" >&2
+    exit 1
+    ;;
+esac

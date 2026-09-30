@@ -7,6 +7,7 @@
     self.modules.system.fileSystem
     self.modules.system.fonts
     self.modules.system.gaming
+    self.modules.system.input
     self.modules.system.shell
     self.modules.system.virtualisation
     self.modules.system.nix
@@ -22,6 +23,7 @@
   system.fileSystem.enable = true;
   system.fonts.enable = true;
   system.gaming.enable = true;
+  system.input.enable = true;
   system.shell.enable = true;
   system.virtualisation.enable = true;
   system.secrets.enable = true;

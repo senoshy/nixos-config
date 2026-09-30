@@ -8,6 +8,7 @@
       fileSystem = import ./system/fileSystem;
       fonts = import ./system/fonts;
       gaming = import ./system/gaming;
+      input = import ./system/input;
       nix = import ./system/nix;
       shell = import ./system/shell;
       virtualisation = import ./system/virtualisation;
@@ -16,7 +17,6 @@
     };
 
     home = {
-      security = import ./home/security;
       browsers = {
         firefox = import ./home/browsers/firefox;
         chromium = import ./home/browsers/chromium;
@@ -26,7 +26,6 @@
       xdg = import ./home/xdg;
       kanshi = import ./home/kanshi;
       theme = import ./home/theme;
-      matugen = import ./home/matugen;
       hyprland = import ./home/hyprland;
       kitty = import ./home/kitty;
       gpg = import ./home/gpg;
