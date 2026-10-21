@@ -20,13 +20,13 @@ in {
               {
                 criteria = "HDMI-A-1";
                 mode = "1920x1080@120Hz";
-                position = "0,0";
               }
               {
                 criteria = "eDP-1";
                 status = "disable";
               }
             ];
+            #exec = [(toString ./kanshi-workspaces)];
           };
         }
         {
@@ -35,7 +35,7 @@ in {
             outputs = [
               {
                 criteria = "eDP-1";
-                mode = "1360x768@60Hz";
+                mode = "1366x768@59.97Hz";
                 position = "0,0";
               }
             ];

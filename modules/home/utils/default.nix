@@ -4,15 +4,22 @@
   lib,
   ...
 }: {
+  services.network-manager-applet.enable = true;
+
   home.packages = with pkgs; [
     fzf
     jq
     btop
     duf
     brightnessctl
-    networkmanager
-    swaynotificationcenter
     thunar
-    waybar
   ];
+
+  xfconf.settings.thunar = {
+    "hidden-bookmarks" = [
+      "file://${config.home.homeDirectory}/desktop"
+      "recent:///"
+    ];
+    "last-view" = "ThunarIconView";
+  };
 }

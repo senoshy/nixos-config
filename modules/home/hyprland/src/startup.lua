@@ -1,8 +1,8 @@
 hl.on("hyprland.start", function()
-  --hl.exec_cmd("sh -c 'kanshi > /tmp/kanshi.log 2>&1'")
-  hl.exec_cmd("awww-daemon")
-  hl.exec_cmd("pywalfox start")
-  hl.exec_cmd("qs")
+  -- rfkill unblock lets Bluetooth/Wi-Fi radios that were soft-blocked at boot
+  -- come up without a manual unlock.
   hl.exec_cmd("rfkill unblock all")
-  hl.exec_cmd("sleep 1 && waybar")
+  -- Start the Caelestia shell detached; it owns the bar, launcher,
+  -- notifications, OSD and background from here on.
+  hl.exec_cmd("caelestia shell -d")
 end)

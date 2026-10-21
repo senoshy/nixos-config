@@ -18,10 +18,16 @@ in {
       ];
       userSettings = {
         ui_font_size = 14;
-        ui_font_family = "Ligconsolata";
+        ui_font_family = "Liga SFMono Nerd Font";
         buffer_font_size = 14;
+        buffer_font_family = "Liga SFMono Nerd Font";
         telemetry = {
           metrics = false;
+        };
+        theme = {
+          mode = "light";
+          dark = "Caelestia";
+          light = "Caelestia";
         };
       };
     };

@@ -8,7 +8,6 @@
       fileSystem = import ./system/fileSystem;
       fonts = import ./system/fonts;
       gaming = import ./system/gaming;
-      input = import ./system/input;
       nix = import ./system/nix;
       shell = import ./system/shell;
       virtualisation = import ./system/virtualisation;
@@ -23,6 +22,7 @@
       };
       media = import ./home/media;
       dev = import ./home/dev;
+      caelestia = import ./home/caelestia;
       xdg = import ./home/xdg;
       kanshi = import ./home/kanshi;
       theme = import ./home/theme;
@@ -31,7 +31,6 @@
       gpg = import ./home/gpg;
       ssh = import ./home/ssh;
       utils = import ./home/utils;
-      waybar = import ./home/waybar;
       zsh = import ./home/zsh;
     };
   };

@@ -1,11 +1,21 @@
 // i do prefer to use this as my "override preferences" than use betterfox.js file to do it, because if something changes, i just update the betterfox.js file without needed to keep my overrides manually
 
+// fonts: proportional text uses Open Sans; mono stays JetBrains Mono.
+// Open Sans installed via pkgs.open-sans; DejaVu kept as the generic fallback.
+user_pref("font.name.sans-serif.x-western", "Open Sans");
+user_pref("font.name.serif.x-western", "DejaVu Serif");
+user_pref("font.name.monospace.x-western", "JetBrainsMono Nerd Font");
+
+// load chrome/userChrome.css so the browser UI (sidebar, urlbar, tabs) can be styled
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+
 user_pref("sidebar.verticalTabs", true);
 user_pref("sidebar.revamp", true);
 
 user_pref("browser.download.start_downloads_in_tmp_dir", false);
 user_pref("browser.shell.checkDefaultBrowser", false);
-user_pref("browser.translations.alwaysTranslateLanguages", false);
+user_pref("browser.translations.alwaysTranslateLanguages", "");
+user_pref("browser.translations.automaticallyPopup", false);
 
 // acceleration / webrender
 user_pref("layers.acceleration.enabled", true);
@@ -22,7 +32,6 @@ user_pref("widget.wayland-dmabuf-webgl.enabled", true);
 // session / cache / processes
 user_pref("browser.sessionstore.interval", 300000);
 user_pref("browser.cache.disk.enable", true);
-user_pref("dom.ipc.processCount", 4);
 
 // memory management — reduce pressure on 19GB system
 user_pref("browser.low_commit_space.threshold_mb", 1024);
@@ -90,3 +99,16 @@ user_pref("network.dns.disablePrefetchFromHTTPS", false);
 user_pref("browser.urlbar.speculativeConnect.enabled", true);
 user_pref("browser.places.speculativeConnect.enabled", true);
 user_pref("network.prefetch-next", true);
+
+// NEVER prompt for permissions, except camera and microphone (0=ask, 1=allow, 2=block)
+// Only these types honor permissions.default.* in Firefox: camera, microphone, geo,
+// desktop-notification, shortcuts, xr
+user_pref("permissions.default.camera", 0);
+user_pref("permissions.default.microphone", 0);
+user_pref("permissions.default.geo", 2);
+user_pref("permissions.default.desktop-notification", 2);
+user_pref("permissions.default.shortcuts", 2);
+user_pref("permissions.default.xr", 2);
+
+// local network access: allow without prompting
+user_pref("network.lna.blocking", false);

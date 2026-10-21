@@ -27,6 +27,5 @@ in {
         "x-scheme-handler/unknown" = "firefox.desktop";
       };
     };
-    home.packages = [pkgs.pywalfox-native];
   };
 }

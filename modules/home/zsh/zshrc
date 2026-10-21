@@ -1,19 +1,20 @@
-typeset -g ABBR_QUIET=1
+alias gp='git push'
 
-abbr add gs='git status'
-abbr add ga='git add'
-abbr add gc='git commit'
-abbr add gp='git push'
+if [[ ! -d /nix ]]; then
+    alias gs='git status'
+    alias ga='git add'
+    alias gc='git commit'
+    alias gp='git push'
 
-(( $+commands[eza] ))       && abbr ls='eza --icons'
-(( $+commands[zoxide] ))    && abbr cd='z'
-(( $+commands[nix] ))       && {
-  abbr nf='nix flake update'
-  abbr nb='sudo nixos-rebuild switch --flake'
-  abbr hm='home-manager -b bak switch --flake'
-}
+    eval "$(zoxide init zsh --cmd cd)"
 
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
+    bindkey "^[[1;5C" forward-word
+    bindkey "^[[1;5D" backward-word
+fi
 
-setopt HIST_IGNORE_DUPS SHARE_HISTORY
+(( $+commands[eza] ))    && alias ls='eza --icons'
+
+# History
+HISTSIZE=50000
+SAVEHIST=50000
+setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE SHARE_HISTORY INC_APPEND_HISTORY

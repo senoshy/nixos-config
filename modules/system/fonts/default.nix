@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }: let
   cfg = config.system.fonts;
@@ -14,6 +13,7 @@ in {
   config = lib.mkIf cfg.enable {
     fonts.packages = with pkgs; [
       sf-mono-liga-bin
+      ultimate-oldschool-pc-font-pack
       dosega
       tamzen-ttf
       inconsolata
@@ -21,8 +21,9 @@ in {
       nerd-fonts.jetbrains-mono
       liberation_ttf
       plemoljp
-
-      # dependencies
+      corefonts
+      dejavu_fonts
+      open-sans
       noto-fonts-cjk-sans
       noto-fonts-color-emoji
       noto-fonts

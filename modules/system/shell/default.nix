@@ -14,19 +14,13 @@ in {
     programs.zsh = {
       enable = true;
       enableCompletion = true;
-      autosuggestions.enable = true;
       syntaxHighlighting.enable = true;
 
       shellAliases = {
-        cd = "z";
         gs = "git status";
         ga = "git add";
         gc = "git commit";
         gp = "git push";
-        nf = "nix flake update";
-        hm = "home-manager -b bak switch --flake";
-        nb = "sudo nixos-rebuild switch --flake";
-        ls = "eza --icons";
       };
 
       ohMyZsh.enable = false;
@@ -35,29 +29,59 @@ in {
 
       interactiveShellInit = lib.mkMerge [
         (lib.mkBefore ''
-          [[ -o interactive && -t 0 ]] && stty -echo 2>/dev/null
-
-          printf '\e[2K\r'
           if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
             source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
           fi
-          typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
+          typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
           typeset -g POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
           typeset -g POWERLEVEL9K_DISABLE_GITSTATUS_UPGRADE=true
         '')
-        # Runs after system /etc/zshrc.
-        (lib.mkAfter ''
-          source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-          source ${pkgs.zsh-abbr}/share/zsh/zsh-abbr/zsh-abbr.zsh
 
-          for f in "$HOME/.config/zsh/.p10k.zsh" "$HOME/.p10k.zsh"; do
-            [[ ! -f "$f" ]] || { source "$f"; break; }
-          done
-          eval "$(zoxide init zsh)"
+        (lib.mkOrder 1000 ''
+          (( $+commands[eza] )) && alias ls='eza'
+
+          typeset -g ABBR_QUIET=1
+          source ${pkgs.zsh-abbr}/share/zsh/zsh-abbr/zsh-abbr.zsh
+          abbr nf='nix flake update'
+          abbr nb='sudo nixos-rebuild switch --flake'
+          abbr hm='home-manager -b bak switch --flake'
+
+          eval "$(zoxide init zsh --cmd cd)"
 
           bindkey "^[[1;5C" forward-word
           bindkey "^[[1;5D" backward-word
-          stty echo 2>/dev/null
+        '')
+
+        (lib.mkAfter ''
+          source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+          for f in "$HOME/.config/zsh/.p10k.zsh" "$HOME/.p10k.zsh"; do
+            [[ ! -f "$f" ]] || { source "$f"; break; }
+          done
+
+          typeset -g POWERLEVEL9K_MODE=ascii
+          typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs newline prompt_char)
+          typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
+          typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
+          typeset -g POWERLEVEL9K_SINGLE_LINE=false
+          typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=${"''"}
+          typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=${"''"}
+          typeset -g POWERLEVEL9K_PROMPT_CHAR_OVERWRITE_STATE=true
+          typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=3
+          typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=1
+          typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='$ '
+          typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION='# '
+          typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_CONTENT_EXPANSION=': '
+          typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_CONTENT_EXPANSION='> '
+          typeset -g POWERLEVEL9K_DIR_FOREGROUND=3
+          typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=3
+          typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=3
+          typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=2
+          typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=3
+          typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=2
+          typeset -g POWERLEVEL9K_STATUS_OK_FOREGROUND=2
+          typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND=1
+          typeset -g POWERLEVEL9K_INSTANT_PROMPT_FOREGROUND=3
+
           (( ! ''${+functions[p10k]} )) || p10k finalize
         '')
       ];
@@ -66,6 +90,5 @@ in {
     environment.systemPackages = [pkgs.zsh-abbr];
 
     users.defaultUserShell = pkgs.zsh;
-    environment.shells = [pkgs.zsh];
   };
 }

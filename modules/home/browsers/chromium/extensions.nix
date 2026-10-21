@@ -15,15 +15,18 @@
   createChromiumExtension = createChromiumExtensionFor browserVersion;
 in [
   (createChromiumExtension {
-    # uBlock Origin
     id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
     sha256 = "14c32zm8nzi4i58v6r9p04khqj98i08wrnnm13831cdb7j442vva";
     version = "1.73.0";
   })
   (createChromiumExtension {
-    # Bitwarden
     id = "nngceckbapebfimnlniiiahkandclblb";
     sha256 = "17ymclqqc34layqwjb53wym4q1jm429pk4m95lw06k93khnr99fi";
     version = "2026.8.0";
+  })
+  (createChromiumExtension {
+    id = "dhdgffkkebhmkfjojejmpbldmpobfkfo";
+    sha256 = "1m8mmiyrfbs5bcfbjwhx4lwl8gdcx43kvx43yr6irq9rqj1c1bmw";
+    version = "5.5.0";
   })
 ]

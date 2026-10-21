@@ -1,13 +1,12 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
   ...
 }: let
   cfg = config.system.interface;
-  cursorPackage = pkgs.kdePackages.breeze;
-  cursorThemeName = "Breeze_Light";
+  cursorPackage = pkgs.whitesur-cursors;
+  cursorThemeName = "WhiteSur-cursors";
 in {
   options.system.interface = {
     enable = lib.mkEnableOption "sddm, hyprland, and gnome-keyring";
@@ -49,7 +48,6 @@ in {
     };
 
     services.gnome.gnome-keyring.enable = lib.mkDefault true;
-    services.pcscd.enable = lib.mkDefault true;
     services.dbus.implementation = lib.mkDefault "broker";
 
     security.pam.services = {
@@ -57,22 +55,13 @@ in {
       login.enableGnomeKeyring = true;
     };
 
-    xdg.portal = {
-      enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-hyprland
-        xdg-desktop-portal-gtk
-      ];
-      config.common.default = "*";
-    };
-
     environment.systemPackages = with pkgs; [
+      xinit
       cursorPackage
       gnome-epub-thumbnailer
       kdePackages.kwindowsystem
       kdePackages.qt5compat
       kdePackages.qtmultimedia
-      libsForQt5.qt5ct
       qt5.qtgraphicaleffects
       qt5.qtquickcontrols
       qt5.qtsvg

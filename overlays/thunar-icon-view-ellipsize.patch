@@ -1,0 +1,12 @@
+--- a/thunar/thunar-icon-view.c
++++ b/thunar/thunar-icon-view.c
+@@ -113,6 +113,9 @@
+   /* setup the name renderer */
+   g_object_set (G_OBJECT (THUNAR_STANDARD_VIEW (icon_view)->name_renderer),
+                 "wrap-mode", PANGO_WRAP_WORD_CHAR,
++                /* Windows-style: keep names on a single line, ellipsize in the
++                 * middle so the tail (file extension) stays visible */
++                "ellipsize", PANGO_ELLIPSIZE_MIDDLE,
+                 NULL);
+ 
+   /* synchronize the "text-beside-icons" property with the global preference */

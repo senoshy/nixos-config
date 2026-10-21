@@ -7,7 +7,6 @@
 }: {
   imports = [
     inputs.disko.nixosModules.disko
-    inputs.sops-nix.nixosModules.sops
     inputs.nix-gaming.nixosModules.platformOptimizations
     inputs.nix-gaming.nixosModules.pipewireLowLatency
     inputs.qylock.nixosModules.default
@@ -28,15 +27,14 @@
   services.ratbagd.enable = true;
   services.flatpak.enable = true;
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
-  };
+  hardware.logitech.wireless.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  nix.settings.allow-import-from-derivation = lib.mkForce true;
+  programs.xfconf.enable = true;
+  programs.dconf.enable = true;
 
-  networking.hostName = "amadeus";
+  boot.kernelParams = ["i915.enable_psr=0"];
+
+  networking.hostName = "anteiku";
 
   networking.networkmanager.enable = true;
 
@@ -44,30 +42,29 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   console.keyMap = "us-intl";
-
   programs.nix-ld.enable = true;
 
   security.pam.services.login.gnupg.enable = true;
 
-  sops.secrets.password_riu = {
-    key = "riu_password";
+  sops.secrets.password_senoshy = {
+    key = "senoshy_password";
     neededForUsers = true;
   };
 
   sops.secrets.ssh_private_key = {
-    owner = config.users.users.riu.name;
+    owner = config.users.users.senoshy.name;
   };
 
-  sops.secrets.riu_gpg = {
-    owner = config.users.users.riu.name;
+  sops.secrets.senoshy_gpg = {
+    owner = config.users.users.senoshy.name;
     mode = "0600";
   };
 
-  users.users.riu = {
-    hashedPasswordFile = config.sops.secrets.password_riu.path;
-    home = "/home/riu";
+  users.users.senoshy = {
+    hashedPasswordFile = config.sops.secrets.password_senoshy.path;
+    home = "/home/senoshy";
     isNormalUser = true;
-    description = "riu";
+    description = "senoshy";
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -84,7 +81,9 @@
 
   environment.systemPackages = with pkgs; [
     libva-utils
+    inputs.spotifast.packages."${pkgs.stdenv.hostPlatform.system}".default
     config.boot.kernelPackages.cpupower
+    emacs
   ];
 
   hardware.graphics = {
@@ -92,8 +91,10 @@
     enable32Bit = true;
     extraPackages = with pkgs; [
       intel-media-driver
+      intel-vaapi-driver
       intel-compute-runtime-legacy1
-      vpl-gpu-rt
+      libva-vdpau-driver
+      libvdpau-va-gl
     ];
   };
 
@@ -103,16 +104,40 @@
 
   services = {
     power-profiles-daemon.enable = true;
-    thermald.enable = false;
-    throttled.enable = false;
-    auto-cpufreq.enable = false;
+    thermald.enable = true;
     upower.enable = true;
+    fstrim = {
+      enable = true;
+      interval = "weekly";
+    };
+  };
+
+  services.udev.extraRules = ''
+    ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="bfq"
+  '';
+
+  systemd.services.power-profile-performance = {
+    description = "Set power profile to performance";
+    wantedBy = ["multi-user.target"];
+    after = ["power-profiles-daemon.service"];
+    requires = ["power-profiles-daemon.service"];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.power-profiles-daemon}/bin/powerprofilesctl set performance";
+    };
   };
 
   zramSwap = {
     enable = true;
-    memoryPercent = 40;
+    memoryPercent = 25;
     algorithm = "zstd";
+  };
+
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 10;
+    "vm.vfs_cache_pressure" = 50;
+    "vm.page-cluster" = 0;
   };
 
   system.stateVersion = "26.05";

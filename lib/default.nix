@@ -23,13 +23,14 @@ in {
 
   mkHMConfig = {
     homeName,
+    hostName ? "nixos",
     extraModules ? [],
     system ? "x86_64-linux",
   }:
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = pkgsFor system;
       extraSpecialArgs = {
-        inherit inputs self system;
+        inherit inputs self system hostName;
       };
       modules = ["${self}/home/${homeName}/home.nix"] ++ extraModules;
     };

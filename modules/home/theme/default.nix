@@ -1,5 +1,4 @@
 {
-  inputs,
   lib,
   config,
   pkgs,
@@ -20,16 +19,11 @@ in {
       };
     };
 
-    home.sessionVariables = {
-      XCURSOR_THEME = config.home.pointerCursor.name;
-      XCURSOR_SIZE = toString config.home.pointerCursor.size;
-    };
-
     home.pointerCursor = {
       enable = true;
-      package = pkgs.kdePackages.breeze;
-      name = "Breeze_Light";
-      size = 18;
+      package = pkgs.whitesur-cursors;
+      name = "WhiteSur-cursors";
+      size = 24;
     };
 
     qt = {
@@ -38,11 +32,18 @@ in {
     };
 
     gtk.enable = true;
+    gtk.font = {
+      name = "Tahoma";
+      size = 9;
+    };
     gtk.theme = {
-      name = "adw-gtk3-dark";
+      name = "adw-gtk3";
       package = pkgs.adw-gtk3;
     };
-
+    gtk.cursorTheme = {
+      name = config.home.pointerCursor.name;
+      package = config.home.pointerCursor.package;
+    };
     gtk.iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
@@ -52,15 +53,12 @@ in {
       glib
       gsettings-desktop-schemas
       dconf-editor
-      kdePackages.qtstyleplugin-kvantum
       kdePackages.qt6ct
-      libsForQt5.qtstyleplugin-kvantum
       libsForQt5.qt5ct
-      adw-gtk3
       procps
       libadwaita
       gtk4
-      papirus-icon-theme
+      adwaita-icon-theme
       tumbler
       ffmpegthumbnailer
     ];
@@ -73,18 +71,7 @@ in {
       "file://${config.xdg.userDirs.projects}"
     ];
 
-    gtk.gtk3.extraCss = lib.mkForce ''
-      @import url("file://${config.home.homeDirectory}/.config/gtk-3.0/colors.css");
-    '';
-
-    gtk.gtk4.extraCss = lib.mkForce ''
-      @import url("file://${config.home.homeDirectory}/.config/gtk-4.0/colors.css");
-    '';
-
     home.file."${config.home.homeDirectory}/.config/kdeglobals".text = ''
-      [UiSettings]
-      ColorScheme=Matugen
-
       [Icons]
       Theme=Papirus-Dark
 
@@ -93,36 +80,18 @@ in {
       Places Icons Static Size=22
       Preview Thumbnails=true
       Preview Width=280
-
-      [KDE File Manager Settings]
-      image/jpeg=com.interversehq.qView.desktop
-      image/png=com.interversehq.qView.desktop
-      image/gif=com.interversehq.qView.desktop
-      image/bmp=com.interversehq.qView.desktop
-      image/webp=com.interversehq.qView.desktop
-      image/tiff=com.interversehq.qView.desktop
-      image/avif=com.interversehq.qView.desktop
     '';
 
     home.file."${config.home.homeDirectory}/.config/qt5ct/qt5ct.conf".text = ''
       [Appearance]
-      style=kvantum
-      color_scheme_path=${config.home.homeDirectory}/.config/qt5ct/colors/matugen.conf
+      style=windows
       icon_theme=Papirus-Dark
-      custom_palette=true
     '';
 
     home.file."${config.home.homeDirectory}/.config/qt6ct/qt6ct.conf".text = ''
       [Appearance]
-      style=kvantum
-      color_scheme_path=${config.home.homeDirectory}/.config/qt6ct/colors/matugen.conf
+      style=windows
       icon_theme=Papirus-Dark
-      custom_palette=true
-    '';
-
-    home.file."${config.home.homeDirectory}/.config/Kvantum/kvantum.kvconfig".text = ''
-      [General]
-      theme=matugen
     '';
   };
 }

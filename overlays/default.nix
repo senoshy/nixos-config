@@ -10,21 +10,9 @@
     '';
   };
 
-  doto = prev.stdenvNoCC.mkDerivation {
-    pname = "doto";
-    version = "1.0";
-    src = prev.fetchurl {
-      url = "https://raw.githubusercontent.com/google/fonts/main/ofl/doto/Doto%5BROND%2Cwght%5D.ttf";
-      hash = "sha256-b0/n03hTuR3zaY2qhM3i2+HJaV2IyYbmUQE0kQM31CY=";
-      name = "Doto.ttf";
-    };
-    dontConfigure = true;
-    dontUnpack = true;
-    installPhase = ''
-      mkdir -p $out/share/fonts/truetype
-      cp $src $out/share/fonts/truetype/Doto.ttf
-    '';
-  };
+  thunar = prev.thunar.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [./thunar-icon-view-ellipsize.patch];
+  });
 
   tamzen-ttf = prev.stdenvNoCC.mkDerivation {
     pname = "tamzen-ttf";
@@ -51,7 +39,7 @@
     };
     nativeBuildInputs = [prev.unzip];
     dontConfigure = true;
-   dontUnpack = true;
+    dontUnpack = true;
     installPhase = ''
       mkdir -p $out/share/fonts/truetype
       unzip -j $src DOSEGA.ttf -d $out/share/fonts/truetype
@@ -62,4 +50,10 @@
     withVencord = true;
     commandLineArgs = "--enable-features=AcceleratedVideoEncoder,AcceleratedVideoDecodeLinuxGL,WaylandWindowDecorations --ignore-gpu-blocklist";
   };
+
+  intel-compute-runtime-legacy1 = prev.intel-compute-runtime-legacy1.overrideAttrs (
+    old: {
+      CXXFLAGS = (old.CXXFLAGS or "") + " -Wno-error=sfinae-incomplete";
+    }
+  );
 }

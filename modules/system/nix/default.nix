@@ -10,11 +10,8 @@ in {
     trusted-users = mkDefault ["root" "@wheel"];
     min-free = mkDefault (2 * gb);
     max-free = mkDefault (10 * gb);
-    cores = mkDefault 0;
-    max-jobs = mkDefault "auto";
-    keep-outputs = mkDefault false;
-    keep-derivations = mkDefault false;
-    warn-dirty = mkDefault true;
+    max-jobs = mkDefault 2;
+    cores = mkDefault 2;
   };
 
   nix.gc = {

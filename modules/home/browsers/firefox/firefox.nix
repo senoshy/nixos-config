@@ -42,10 +42,13 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    home.sessionVariables = {
+      MOZ_ENABLE_WAYLAND = "1";
+    };
+
     programs.firefox = {
       enable = lib.mkDefault true;
       package = pkgs.firefox;
-      nativeMessagingHosts = [pkgs.pywalfox-native];
       policies = {
         InstallAddonsPermission = {
           Default = true;
@@ -53,16 +56,27 @@ in {
         inherit ((import ./extensions.nix)) ExtensionSettings;
       };
       profiles = {
-        "riu" = {
+        "senoshy" = {
           id = 0;
           isDefault = true;
           settings = parseUserJS userJSContent;
-          #userChrome =
+          userChrome = ''
+            :root,
+            #navigator-toolbox,
+            #sidebar-main,
+            #sidebar-box,
+            #sidebar,
+            #urlbar,
+            #urlbar-input,
+            toolbar,
+            menupopup,
+            menuitem,
+            .tab-text,
+            tab {
+              font-family: "Open Sans", sans-serif !important;
+            }
+          '';
           userContent = ''
-            @import url("${config.home.homeDirectory}/.config/matugen/websites/colors.css");
-            @import url("${config.home.homeDirectory}/.config/matugen/websites/youtube.css");
-            @import url("${config.home.homeDirectory}/.config/matugen/websites/bitwarden.css");
-            @import url("${config.home.homeDirectory}/.config/matugen/websites/github.css");
           '';
           search = import ./search.nix {inherit config pkgs lib;};
           bookmarks = import ./bookmarks.nix;

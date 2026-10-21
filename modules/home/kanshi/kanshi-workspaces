@@ -2,12 +2,89 @@
 set -euo pipefail
 
 hyprctl="${HYPRCTL:-$(command -v hyprctl)}"
+HDMI="HDMI-A-1"
+eDP="eDP-1"
+pidfile="${XDG_RUNTIME_DIR:-/tmp}/kanshi-workspaces-watcher.pid"
 
-case "${1:-}" in
+if [ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
+  sock="${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock"
+else
+  sock=$(ls "$XDG_RUNTIME_DIR"/hypr/*/.socket2.sock 2>/dev/null | head -n1 || true)
+fi
+
+monitor_present() {
+  "$hyprctl" monitors | grep -q "^Monitor $1 ("
+}
+
+# prints the monitor a workspace currently lives on, "" if it doesn't exist
+ws_monitor() {
+  local id="$1" line
+  line=$("$hyprctl" workspaces | grep -E "^workspace ID ${id} \(" || true)
+  if [ -z "$line" ]; then return 0; fi
+  if [[ "$line" =~ on[[:space:]]+monitor[[:space:]]+([^:[:space:]]+) ]]; then
+    printf '%s' "${BASH_REMATCH[1]}"
+  fi
+  return 0
+}
+
+move_ws() {
+  local id="$1" mon="$2"
+  "$hyprctl" eval "hl.dispatch(hl.dsp.workspace.move({ workspace = \"$id\", monitor = \"$mon\" }))" >/dev/null || true
+}
+
+enforce_once() {
+  # only while both monitors are connected simultaneously
+  if ! monitor_present "$HDMI" || ! monitor_present "$eDP"; then return 0; fi
+
+  local i cur
+  for i in 1 2 3 4 5; do
+    cur=$(ws_monitor "$i")
+    if [ -n "$cur" ] && [ "$cur" != "$HDMI" ]; then
+      move_ws "$i" "$HDMI"
+    fi
+  done
+  for i in 6 7 8 9 10; do
+    cur=$(ws_monitor "$i")
+    if [ -n "$cur" ] && [ "$cur" != "$eDP" ]; then
+      move_ws "$i" "$eDP"
+    fi
+  done
+  return 0
+}
+
+stop_watcher() {
+  if [ -f "$pidfile" ]; then
+    kill "$(cat "$pidfile")" 2>/dev/null || true
+    rm -f "$pidfile"
+  fi
+  pkill -f "nc -Ud $sock" 2>/dev/null || true
+}
+
+start_watcher() {
+  stop_watcher
+  [ -n "$sock" ] || return 0
+
+  (
+    set +e
+    coproc WS { nc -Ud "$sock"; }
+    trap 'kill "$WS_PID" 2>/dev/null' EXIT TERM HUP
+    while IFS= read -r -u "${WS[0]}" event; do
+      case "$event" in
+        createworkspace\>\>*|moveworkspace\>\>*) enforce_once ;;
+      esac
+    done
+  ) </dev/null >/dev/null 2>&1 &
+  echo $! > "$pidfile"
+}
+
+case "${1:-bind}" in
   bind)
     "$hyprctl" eval 'wsrules = wsrules or {}; for i = 1, 5 do wsrules[tostring(i)] = hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1" }) end; for i = 6, 10 do wsrules[tostring(i)] = hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" }) end'
+    enforce_once
+    start_watcher
     ;;
   unbind)
+    stop_watcher
     "$hyprctl" eval 'for _, r in pairs(wsrules or {}) do r:set_enabled(false) end'
     ;;
   *)

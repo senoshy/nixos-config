@@ -118,55 +118,39 @@ in {
       defaultSearchProviderSuggestURL = "https://duckduckgo.com/ac/?q={searchTerms}&type=list";
 
       extraOpts = {
-        # PREF: disable account sign-in and sync
         BrowserSignin = 0;
         SyncDisabled = true;
 
-        # PREF: disable login manager
         PasswordManagerEnabled = false;
 
-        # PREF: disable address and credit card manager
         AutofillAddressEnabled = false;
         AutofillCreditCardEnabled = false;
 
-        # PREF: disable translation
         TranslateEnabled = false;
 
-        # PREF: disable telemetry and metrics reporting
         MetricsReportingEnabled = false;
 
-        # PREF: disable search suggestions
         SearchSuggestEnabled = false;
 
-        # PREF: send do not track
         DoNotTrackEnabled = true;
 
-        # PREF: block third-party cookies
         BlockThirdPartyCookies = true;
 
-        # PREF: disable prefetch / preconnect / DNS prefetch
         NetworkPredictionOptions = 2;
 
-        # PREF: disable DNS-over-HTTPS
         DnsOverHttpsMode = "off";
 
-        # PREF: disable default browser check
         DefaultBrowserSettingEnabled = false;
 
-        # PREF: ask where to save every file
         PromptForDownloadLocation = true;
 
-        # PREF: homepage + home button
         HomepageIsNewTabPage = false;
         ShowHomeButton = true;
 
-        # PREF: WebRTC — hide local IP, public interface only
         WebRtcIPHandlingPolicy = 2;
 
-        # PREF: disable Chrome variations/experiments
         ChromeVariations = 2;
 
-        # PREF: do not allow embedded tweets, Instagram, Reddit, and Tiktok posts
         URLBlocklist = [
           "platform.twitter.com/*"
           "platform.instagram.com/*"
@@ -174,10 +158,8 @@ in {
           "www.tiktok.com/embed/*"
         ];
 
-        # search engines (mirrors firefox search.nix)
         SiteSearchSettings = search.engines;
 
-        # bookmarks (mirrors firefox bookmarks.nix)
         ManagedBookmarks = bookmarks;
       };
 
@@ -187,5 +169,7 @@ in {
         "browser.show_home_button" = true;
       };
     };
+
+    environment.systemPackages = [pkgs.brave];
   };
 }

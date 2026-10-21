@@ -15,18 +15,17 @@
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
     nixosConfigurations = {
-      amadeus = lib.mkNixosConfig {
-        hostName = "amadeus";
+      anteiku = lib.mkNixosConfig {
+        hostName = "anteiku";
         system = "x86_64-linux";
-        extraModules = [];
       };
     };
 
     homeConfigurations = {
-      "riu" = lib.mkHMConfig {
-        homeName = "riu";
+      "senoshy" = lib.mkHMConfig {
+        homeName = "senoshy";
+        hostName = "anteiku";
         system = "x86_64-linux";
-        extraModules = [];
       };
     };
   };
@@ -44,6 +43,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,23 +58,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
+    spotifast = {
+      url = "github:crmne/spotifast";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nvim-config = {
-      url = "github:stdriu/nvim-config";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    fabric = {
-      url = "github:Fabric-Development/fabric";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    matugen = {
-      url = "github:Iniox/Matugen";
+      url = "github:senoshy/nvim-config";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

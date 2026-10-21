@@ -1,9 +1,9 @@
 keys:
-  - &riu age1chvwjpav756nvwgxpuclqrk08tpryamgelnqhvjh39kmqys9kpwstakv0g
-  - &amadeus age12zjjf9ge39sp90gw9kgpwk9qd0jap9g8mqd0rzpd2zu9kstk9ass37vazu
+  - &senoshy age1chvwjpav756nvwgxpuclqrk08tpryamgelnqhvjh39kmqys9kpwstakv0g
+  - &anteiku age12zjjf9ge39sp90gw9kgpwk9qd0jap9g8mqd0rzpd2zu9kstk9ass37vazu
 
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     age:
-      - *riu
-      - *amadeus
+      - *senoshy
+      - *anteiku

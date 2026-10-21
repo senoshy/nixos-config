@@ -11,7 +11,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [kitty];
+    home.packages = [pkgs.kitty];
     home.file."${config.home.homeDirectory}/.config/kitty/kitty.conf".source = ./kitty.conf;
   };
 }

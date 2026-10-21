@@ -11,7 +11,6 @@ in {
   };
   config = lib.mkIf cfg.enable {
     boot.kernelParams = ["kvm.ignore_msrs=1"];
-    programs.dconf.enable = true;
     virtualisation.libvirtd = {
       enable = true;
       qemu = {

@@ -1,7 +1,7 @@
 {
   config,
-  lib,
   pkgs,
+  lib,
   ...
 }: let
   cfg = config.home.dev.vscodium;
@@ -14,7 +14,10 @@ in {
     programs.vscodium = {
       enable = lib.mkDefault true;
       package = lib.mkDefault pkgs.vscodium;
-      profiles.default.enableExtensionUpdateCheck = lib.mkDefault true; # in hm options says it only works for default profile and applies to all profiles
+      profiles.default.enableExtensionUpdateCheck = lib.mkDefault true;
+      profiles.default.userSettings = {
+        "workbench.colorTheme" = "Default Dark Modern";
+      };
     };
   };
 }
