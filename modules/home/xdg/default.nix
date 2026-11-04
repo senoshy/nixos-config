@@ -40,6 +40,10 @@ in {
         "image/tiff" = "com.interversehq.qView.desktop";
         "image/avif" = "com.interversehq.qView.desktop";
         "application/pdf" = "org.pwmt.zathura.desktop";
+        "application/x-roblox-place" = "org.vinegarhq.Vinegar.desktop";
+        "application/x-roblox-model" = "org.vinegarhq.Vinegar.desktop";
+        "x-scheme-handler/roblox-studio" = "org.vinegarhq.Vinegar.desktop";
+        "x-scheme-handler/roblox-studio-auth" = "org.vinegarhq.Vinegar.desktop";
       };
     };
 
@@ -62,7 +66,6 @@ in {
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
         xdg-desktop-portal-hyprland
-        kdePackages.xdg-desktop-portal-kde
       ];
     };
   };

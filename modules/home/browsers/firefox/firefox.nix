@@ -46,6 +46,8 @@ in {
       MOZ_ENABLE_WAYLAND = "1";
     };
 
+    programs.librewolf.enable = true;
+
     programs.firefox = {
       enable = lib.mkDefault true;
       package = pkgs.firefox;

@@ -15,18 +15,18 @@
   createChromiumExtension = createChromiumExtensionFor browserVersion;
 in [
   (createChromiumExtension {
-    id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
-    sha256 = "14c32zm8nzi4i58v6r9p04khqj98i08wrnnm13831cdb7j442vva";
-    version = "1.73.0";
+    id = "ddkjiahejlhfcafbddmgiahcphecmpfh";
+    sha256 = "0xjs8z4l7rwsxm873k2d11yf9bcm15k0qjifnn8lx1p6p6g5b1q8";
+    version = "2026.1021.1354";
   })
   (createChromiumExtension {
     id = "nngceckbapebfimnlniiiahkandclblb";
-    sha256 = "17ymclqqc34layqwjb53wym4q1jm429pk4m95lw06k93khnr99fi";
-    version = "2026.8.0";
+    sha256 = "0sggjs94vhbfw6fmyr27m686p8mfb31irbv9kgphnmfj8vybgzpj";
+    version = "2026.10.0";
   })
   (createChromiumExtension {
     id = "dhdgffkkebhmkfjojejmpbldmpobfkfo";
-    sha256 = "1m8mmiyrfbs5bcfbjwhx4lwl8gdcx43kvx43yr6irq9rqj1c1bmw";
-    version = "5.5.0";
+    sha256 = "0wp8bxjqwkxaqspsjy4gi3103zrjkfzxjbj6pbg6lqvyh4vpj5mm";
+    version = "5.5.1";
   })
 ]

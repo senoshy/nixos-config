@@ -81,9 +81,7 @@
 
   environment.systemPackages = with pkgs; [
     libva-utils
-    inputs.spotifast.packages."${pkgs.stdenv.hostPlatform.system}".default
     config.boot.kernelPackages.cpupower
-    emacs
   ];
 
   hardware.graphics = {
@@ -102,6 +100,8 @@
 
   hardware.enableRedistributableFirmware = true;
 
+  powerManagement.enable = true;
+
   services = {
     power-profiles-daemon.enable = true;
     thermald.enable = true;
@@ -113,31 +113,21 @@
   };
 
   services.udev.extraRules = ''
-    ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="bfq"
+    ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="mq-deadline"
   '';
-
-  systemd.services.power-profile-performance = {
-    description = "Set power profile to performance";
-    wantedBy = ["multi-user.target"];
-    after = ["power-profiles-daemon.service"];
-    requires = ["power-profiles-daemon.service"];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = "${pkgs.power-profiles-daemon}/bin/powerprofilesctl set performance";
-    };
-  };
 
   zramSwap = {
     enable = true;
-    memoryPercent = 25;
+    memoryPercent = 50;
     algorithm = "zstd";
   };
 
   boot.kernel.sysctl = {
-    "vm.swappiness" = 10;
+    "vm.swappiness" = 100;
     "vm.vfs_cache_pressure" = 50;
     "vm.page-cluster" = 0;
+    "vm.dirty_background_ratio" = 5;
+    "vm.dirty_ratio" = 10;
   };
 
   system.stateVersion = "26.05";

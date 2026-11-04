@@ -36,6 +36,39 @@ in {
 
     programs.gamescope.enable = true;
 
+    systemd.services.sober-install = {
+      description = "Install Sober from Flathub (Initial Setup)";
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.flatpak];
+
+      script = ''
+        set -eu
+
+        # Exit early if initial setup was already completed
+        if [ -f /var/lib/sober-installed ]; then
+          echo "Sober initial installation already completed. Exiting."
+          exit 0
+        fi
+
+        flatpak remote-add --system --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+        if ! flatpak info --system org.vinegarhq.Sober >/dev/null 2>&1; then
+          flatpak install --system --noninteractive --assumeyes flathub org.vinegarhq.Sober
+        fi
+
+        # Create marker file to signal successful completion
+        touch /var/lib/sober-installed
+      '';
+
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        TimeoutStartSec = "20min";
+      };
+    };
+
     environment.systemPackages = with pkgs; [
       heroic
       lutris
@@ -43,7 +76,6 @@ in {
       prismlauncher
       inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-stable
       r2modman
-      vinegar
     ];
   };
 }

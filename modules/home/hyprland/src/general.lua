@@ -1,80 +1,75 @@
--- Colours follow the active Caelestia scheme, regenerated from the wallpaper
--- into ~/.config/hypr/scheme/current.lua (by `caelestia scheme`/`wallpaper`).
--- The inline fallback only applies before the shell has written that file.
-local scheme
-do
-    local home = os.getenv("HOME")
-    local ok, loaded = pcall(dofile, home .. "/.config/hypr/scheme/current.lua")
-    if ok and type(loaded) == "table" and loaded.primary then
-        scheme = loaded
-    else
-        scheme = {
-            primary = "c2c1ff",
-            onSurfaceVariant = "47464f",
-            inversePrimary = "595992",
-        }
-    end
-end
-
 local function rgba(hex, alpha)
     return "rgba(" .. hex .. alpha .. ")"
 end
 
 hl.config({
     input = {
-        kb_layout     = "us",
-        kb_variant    = "",
-        kb_model      = "",
-        kb_options    = "",
-        kb_rules      = "",
-        follow_mouse  = 1,
-        accel_profile = "flat",
-        sensitivity   = 1,
-        touchpad      = {
+        kb_layout      = "us",
+        kb_variant     = "",
+        kb_model       = "",
+        kb_options     = "",
+        kb_rules       = "",
+        follow_mouse   = 1,
+        accel_profile  = "flat",
+        sensitivity    = -0.32,
+        force_no_accel = false,
+        touchpad       = {
             natural_scroll = false,
+            scroll_factor  = 1.5,
         },
     },
 
     misc = {
-        force_default_wallpaper      = 0,
         disable_hyprland_logo        = true,
         disable_splash_rendering     = true,
         animate_mouse_windowdragging = false,
+        enable_swallow               = false,
+        allow_session_lock_restore   = true,
     },
 
-    -- Values mirror the upstream Caelestia dots so the window chrome lines up
-    -- with the bar (same gaps, rounding and scheme-derived border colours).
     general = {
-        gaps_in          = 5,
-        gaps_out         = 10,
-        gaps_workspaces  = 20,
-        border_size      = 1,
+        gaps_in          = 2,
+        gaps_out         = 4,
+        gaps_workspaces  = 10,
+        border_size      = 2,
         col              = {
-            active_border   = rgba(scheme.primary, "e6"),
-            inactive_border = rgba(scheme.onSurfaceVariant, "11"),
+            active_border   = rgba("a996ba", "e6"),
+            inactive_border = rgba("47464f", "11"),
         },
         resize_on_border = true,
-        allow_tearing    = false,
+        allow_tearing    = true,
         layout           = "dwindle",
     },
 
     decoration = {
-        rounding         = 15,
+        rounding         = 8,
         rounding_power   = 2,
         active_opacity   = 1.0,
         inactive_opacity = 1.0,
         shadow           = {
-            enabled      = true,
-            range        = 15,
-            render_power = 4,
-            color        = rgba(scheme.inversePrimary or scheme.primary, "10"),
+            enabled = false,
         },
         blur             = {
-            enabled  = true,
-            size     = 8,
-            passes   = 2,
-            vibrancy = 0.1696,
-            noise    = 0.02,
+            enabled           = true,
+            size              = 3,
+            passes            = 1,
+            new_optimizations = true,
+            noise             = 0.02,
+            contrast          = 1.0,
+            brightness        = 1.0,
+            popups            = true,
         },
+    },
+
+    cursor = {
+        no_hardware_cursors = false,
+    },
+
+    render = {
+        -- 2 = auto: direct scanout only for fullscreen games (CONTENT_TYPE_GAME).
+        -- With 1/true, browser fullscreen viewers (X/Reddit images) also get
+        -- direct-scanned-out, and the AB24 <-> XR24 swapchain change forces a
+        -- full modeset on i915, flashing the whole output on every toggle.
+        direct_scanout = 2,
     },
 })

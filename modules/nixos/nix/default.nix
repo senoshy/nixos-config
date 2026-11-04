@@ -6,7 +6,7 @@
 in {
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
-    auto-optimise-store = mkDefault true;
+    auto-optimise-store = mkDefault false;
     trusted-users = mkDefault ["root" "@wheel"];
     min-free = mkDefault (2 * gb);
     max-free = mkDefault (10 * gb);
@@ -14,9 +14,18 @@ in {
     cores = mkDefault 2;
   };
 
+  nix.daemonCPUSchedPolicy = "batch";
+  nix.daemonIOSchedClass = "idle";
+  nix.daemonIOSchedPriority = 7;
+
   nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 30d";
+  };
+
+  nix.optimise = {
+    automatic = true;
+    dates = "weekly";
   };
 }

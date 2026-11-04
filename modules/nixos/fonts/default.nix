@@ -17,8 +17,12 @@ in {
       dosega
       tamzen-ttf
       inconsolata
+      kirsch
       monaspace
       nerd-fonts.jetbrains-mono
+      nerd-fonts.terminess-ttf
+      nerd-fonts.symbols-only
+      symbola
       liberation_ttf
       plemoljp
       corefonts

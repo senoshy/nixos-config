@@ -1,0 +1,204 @@
+/* ── palette ─────────────────────────────────────────────────────────── */
+@define-color bg rgba(16, 12, 28, 0.60);
+/* blurred bar surface */
+@define-color fg #f4f2fb;
+@define-color fg-dim rgba(244, 242, 251, 0.66);
+@define-color accent #8b5cf6;
+/* tw violet-500 */
+@define-color accent-hi #c4b5fd;
+/* tw violet-300 */
+@define-color danger #fb7185;
+/* tw rose-400 */
+@define-color hairline rgba(139, 92, 246, 0.25);
+@define-color hover rgba(255, 255, 255, 0.07);
+@define-color pill rgba(139, 92, 246, 0.22);
+
+/* ── base ────────────────────────────────────────────────────────────── */
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: @bg;
+    color: @fg;
+    border-bottom: 1px solid @hairline;
+}
+
+/* adw-gtk3 paints every button with chrome + bold text; strip it so the
+   bar keeps its flat look and nothing flashes white on hover */
+button {
+    background: none;
+    box-shadow: none;
+    text-shadow: none;
+    transition: none;
+}
+
+tooltip {
+    background-color: #0d0b16;
+    border: 1px solid @hairline;
+    border-radius: 6px;
+}
+
+tooltip label {
+    color: @fg;
+    padding: 4px 6px;
+}
+
+/* ── left: launcher ──────────────────────────────────────────────────── */
+#custom-launcher {
+    padding: 0 10px 0 12px;
+    color: @accent-hi;
+    font-size: 14px;
+}
+
+/* ── left: focused window title ──────────────────────────────────────── */
+#window {
+    padding: 0 8px;
+    color: @fg-dim;
+}
+
+/* ── workspaces ──────────────────────────────────────────────────────── */
+#workspaces {
+    margin: 0;
+    padding: 0 2px;
+}
+
+#workspaces button {
+    min-width: 20px;
+    min-height: 0;
+    margin: 2px 1px;
+    padding: 0 7px;
+    border: none;
+    border-radius: 5px;
+    color: @fg-dim;
+    font-weight: normal;
+    /* adw-gtk3 would force bold */
+}
+
+#workspaces button:hover {
+    color: @accent-hi;
+    background-color: @hover;
+}
+
+#workspaces button.active {
+    color: @accent-hi;
+    background-color: @pill;
+}
+
+#workspaces button.urgent {
+    color: #ffffff;
+    background-color: @danger;
+}
+
+/* ── right modules ───────────────────────────────────────────────────── */
+#mpd,
+#idle_inhibitor,
+#temperature,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#backlight,
+#keyboard-state,
+#battery,
+#tray,
+#clock {
+    padding: 0 8px;
+    background: transparent;
+}
+
+/* secondary readouts recede, so the bar doesn't read as a wall of text */
+#mpd,
+#temperature,
+#cpu,
+#memory,
+#network,
+#backlight,
+#keyboard-state,
+#battery {
+    color: @fg-dim;
+}
+
+#idle_inhibitor,
+#pulseaudio,
+#clock {
+    color: @fg;
+}
+
+#clock {
+    padding-right: 12px;
+    font-weight: bold;
+}
+
+#tray {
+    padding: 0 12px 0 6px;
+}
+
+#tray>.passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray>.needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+#tray menu {
+    font-family: sans-serif;
+}
+
+/* ── states ──────────────────────────────────────────────────────────── */
+#idle_inhibitor.activated {
+    color: @accent-hi;
+}
+
+#pulseaudio.muted {
+    color: @danger;
+}
+
+#keyboard-state label.locked,
+#keyboard-state.locked {
+    color: @accent-hi;
+}
+
+#mpd.paused,
+#mpd.stopped,
+#mpd.disconnected {
+    color: @fg-dim;
+}
+
+#network.disconnected {
+    color: @danger;
+}
+
+#temperature.critical {
+    color: @danger;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: @accent-hi;
+}
+
+#battery.warning {
+    color: #fbbf24;
+    /* tw amber-400 */
+}
+
+#battery.critical:not(.charging) {
+    color: @danger;
+    animation-name: battery-critical;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes battery-critical {
+    to {
+        color: rgba(251, 113, 133, 0.35);
+    }
+}

@@ -45,7 +45,8 @@ in {
           abbr nf='nix flake update'
           abbr nb='sudo nixos-rebuild switch --flake'
           abbr hm='home-manager -b bak switch --flake'
-
+          abbr nu='nix flake update && git add flake.lock && git commit -m "flake.lock: Update" flake.lock'
+          abbr nd='nix develop'
           eval "$(zoxide init zsh --cmd cd)"
 
           bindkey "^[[1;5C" forward-word
@@ -66,21 +67,27 @@ in {
           typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=${"''"}
           typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=${"''"}
           typeset -g POWERLEVEL9K_PROMPT_CHAR_OVERWRITE_STATE=true
-          typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=3
+          typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=6
           typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=1
-          typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='$ '
-          typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION='# '
-          typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_CONTENT_EXPANSION=': '
-          typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_CONTENT_EXPANSION='> '
-          typeset -g POWERLEVEL9K_DIR_FOREGROUND=3
-          typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=3
-          typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=3
+          typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='$'
+          typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION='#'
+          typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_CONTENT_EXPANSION=':'
+          typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_CONTENT_EXPANSION='>'
+          typeset -g POWERLEVEL9K_DIR_FOREGROUND=6
+          typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=6
+          typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=6
           typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=2
           typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=3
           typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=2
           typeset -g POWERLEVEL9K_STATUS_OK_FOREGROUND=2
           typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND=1
-          typeset -g POWERLEVEL9K_INSTANT_PROMPT_FOREGROUND=3
+          typeset -g POWERLEVEL9K_INSTANT_PROMPT_FOREGROUND=6
+
+          # p10k paints a background on the prompt segments (dir is blue, prompt
+          # char and status are black). Kitty only renders cells with the
+          # default terminal background as translucent, so those segments show
+          # up as opaque boxes. Keep every segment on the default background.
+          typeset -g POWERLEVEL9K_BACKGROUND=
 
           (( ! ''${+functions[p10k]} )) || p10k finalize
         '')

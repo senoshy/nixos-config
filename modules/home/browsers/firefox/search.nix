@@ -62,7 +62,7 @@
         }
       ];
       iconMapObj."16" = "https://www.google.com/favicon.ico";
-      definedAliases = ["@gg"];
+      definedAliases = ["@google"];
     };
     home-manager-options = {
       name = "Home-manager options";

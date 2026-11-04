@@ -10,8 +10,37 @@
     '';
   };
 
+  macos-tahoe-cursors = prev.stdenvNoCC.mkDerivation {
+    pname = "macos-tahoe-cursors";
+    version = "1.1";
+
+    src = prev.fetchzip {
+      url = "https://raw.githubusercontent.com/csabika98/macos-tahome-cursors-snap/721ae1ab7d93378afc9e4a96092d456b208b0a83/MacOS-Tahoe-Cursor.zip";
+      hash = "sha256-Aze8NHhHb4dYilZkpydwH5HEqFnpwoYnX8tbGwdmW7g=";
+    };
+
+    dontConfigure = true;
+    dontBuild = true;
+
+    installPhase = ''
+      mkdir -p $out/share/icons
+      cp -r $src $out/share/icons/MacOS-Tahoe-Cursor
+    '';
+  };
+
   thunar = prev.thunar.overrideAttrs (old: {
     patches = (old.patches or []) ++ [./thunar-icon-view-ellipsize.patch];
+  });
+
+  instaloader = prev.instaloader.overrideAttrs (old: {
+    version = "4.15.3";
+    src = prev.fetchFromGitHub {
+      owner = "alimony";
+      repo = "instaloader";
+      rev = "83ddd40d40925b98571e18dbd2c582ff0b905e1e";
+      hash = "sha256-E0uOd90X/akHgQwAt5N/FlfNWXA6Nr7b7Mhlx+SQ2A0=";
+    };
+    patches = (old.patches or []) ++ [./instaloader-feed-first.patch];
   });
 
   tamzen-ttf = prev.stdenvNoCC.mkDerivation {

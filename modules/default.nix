@@ -1,18 +1,18 @@
 {
   flake.modules = {
     system = {
-      audio = import ./system/audio;
-      bluetooth = import ./system/bluetooth;
-      boot = import ./system/boot;
-      browsers = import ./system/browsers;
-      fileSystem = import ./system/fileSystem;
-      fonts = import ./system/fonts;
-      gaming = import ./system/gaming;
-      nix = import ./system/nix;
-      shell = import ./system/shell;
-      virtualisation = import ./system/virtualisation;
-      secrets = import ./system/secrets;
-      sysdep = import ./system/sysdep;
+      audio = import ./nixos/audio;
+      bluetooth = import ./nixos/bluetooth;
+      boot = import ./nixos/boot;
+      browsers = import ./nixos/browsers;
+      fileSystem = import ./nixos/fileSystem;
+      fonts = import ./nixos/fonts;
+      gaming = import ./nixos/gaming;
+      nix = import ./nixos/nix;
+      shell = import ./nixos/shell;
+      virtualisation = import ./nixos/virtualisation;
+      secrets = import ./nixos/secrets;
+      sysdep = import ./nixos/sysdep;
     };
 
     home = {
@@ -22,11 +22,12 @@
       };
       media = import ./home/media;
       dev = import ./home/dev;
-      caelestia = import ./home/caelestia;
       xdg = import ./home/xdg;
       kanshi = import ./home/kanshi;
       theme = import ./home/theme;
       hyprland = import ./home/hyprland;
+      waybar = import ./home/waybar;
+      rofi = import ./home/rofi;
       kitty = import ./home/kitty;
       gpg = import ./home/gpg;
       ssh = import ./home/ssh;

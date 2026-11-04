@@ -17,25 +17,6 @@ in {
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-
-      lowLatency = {
-        enable = true;
-        quantum = 512;
-        rate = 48000;
-      };
-    };
-
-    services.pipewire.wireplumber.extraConfig."10-disable-suspending" = {
-      "monitor.alsa.rules" = [
-        {
-          matches = [{"node.name" = "~alsa_output.*";}];
-          actions = {
-            update-props = {
-              "session.suspend-on-idle" = false;
-            };
-          };
-        }
-      ];
     };
 
     environment.systemPackages = with pkgs; [

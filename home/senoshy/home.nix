@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./modules.nix
   ];
@@ -39,7 +36,47 @@
     gpu-screen-recorder
     gpu-screen-recorder-gtk
     yazi
+    opencode
+    instaloader
   ];
+
+  programs.vinegar = {
+    enable = true;
+
+    settings = {
+      studio = {
+        renderer = "DXVK";
+        gamemode = true;
+        discord_rpc = true;
+
+        virtual_desktop = "1600x900";
+
+        env.WINEFSYNC = "1";
+
+        fflags.DFIntTaskSchedulerTargetFps = 60;
+      };
+    };
+  };
+
+  xdg.desktopEntries."org.vinegarhq.Vinegar" = {
+    name = "Roblox Studio";
+    genericName = "Studio";
+    comment = "Run Roblox Studio on Linux";
+    exec = "vinegar %u";
+    icon = "org.vinegarhq.Vinegar.studio";
+    terminal = false;
+    categories = ["Development" "Game"];
+    mimeType = [
+      "application/x-roblox-place"
+      "application/x-roblox-model"
+      "x-scheme-handler/roblox-studio"
+      "x-scheme-handler/roblox-studio-auth"
+    ];
+    actions.manage = {
+      name = "Manage";
+      exec = "vinegar manage";
+    };
+  };
 
   programs.obsidian = {
     enable = true;

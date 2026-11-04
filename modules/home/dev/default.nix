@@ -8,7 +8,6 @@
   cfg = config.home.dev;
 in {
   imports = [
-    ./nvim-theme.nix
     ./vscodium.nix
     ./zed.nix
   ];

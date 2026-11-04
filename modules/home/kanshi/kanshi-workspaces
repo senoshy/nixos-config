@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-hyprctl="${HYPRCTL:-$(command -v hyprctl)}"
+hyprctl="${HYPRCTL:-$(command -v hyprctl || true)}"
+[ -x "$hyprctl" ] || { echo "hyprctl not found" >&2; exit 1; }
 HDMI="HDMI-A-1"
 eDP="eDP-1"
 pidfile="${XDG_RUNTIME_DIR:-/tmp}/kanshi-workspaces-watcher.pid"
@@ -37,13 +38,13 @@ enforce_once() {
   if ! monitor_present "$HDMI" || ! monitor_present "$eDP"; then return 0; fi
 
   local i cur
-  for i in 1 2 3 4 5; do
+  for i in {1..10}; do
     cur=$(ws_monitor "$i")
     if [ -n "$cur" ] && [ "$cur" != "$HDMI" ]; then
       move_ws "$i" "$HDMI"
     fi
   done
-  for i in 6 7 8 9 10; do
+  for i in {11..20}; do
     cur=$(ws_monitor "$i")
     if [ -n "$cur" ] && [ "$cur" != "$eDP" ]; then
       move_ws "$i" "$eDP"
@@ -54,10 +55,13 @@ enforce_once() {
 
 stop_watcher() {
   if [ -f "$pidfile" ]; then
-    kill "$(cat "$pidfile")" 2>/dev/null || true
+    pid=$(cat "$pidfile")
+    if kill -0 "$pid" 2>/dev/null; then
+      kill "$pid" 2>/dev/null || true
+    fi
     rm -f "$pidfile"
   fi
-  pkill -f "nc -Ud $sock" 2>/dev/null || true
+  [ -n "${sock:-}" ] && pkill -f "nc -Ud $sock" 2>/dev/null || true
 }
 
 start_watcher() {
@@ -79,7 +83,7 @@ start_watcher() {
 
 case "${1:-bind}" in
   bind)
-    "$hyprctl" eval 'wsrules = wsrules or {}; for i = 1, 5 do wsrules[tostring(i)] = hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1" }) end; for i = 6, 10 do wsrules[tostring(i)] = hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" }) end'
+    "$hyprctl" eval 'wsrules = wsrules or {}; for i = 1, 10 do wsrules[tostring(i)] = hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1" }) end; for i = 11, 20 do wsrules[tostring(i)] = hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" }) end'
     enforce_once
     start_watcher
     ;;

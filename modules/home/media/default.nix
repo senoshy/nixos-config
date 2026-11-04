@@ -18,6 +18,7 @@
       krita
       element-desktop
       discord
+      spotify
       telegram-desktop
       vlc
       yt-dlp

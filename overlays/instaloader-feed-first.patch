@@ -1,0 +1,25 @@
+--- a/instaloader/structures.py
++++ b/instaloader/structures.py
+@@ -1234,6 +1234,12 @@
+         :raises ProfileNotExistsException: If the profile does not exist, or if
+             ``web_profile_info`` answered with HTTP 400 and the fallbacks found nothing.
+         """
++        # Try the feed endpoint and the profile page first. The web_profile_info
++        # endpoint is widely rate-limited with HTTP 429, and those two sources serve
++        # the same data without the wait or the error.
++        fallback = cls._feed_node(context, username=username) or cls._page_node(context, username)
++        if fallback is not None:
++            return fallback
+         try:
+             # Only one attempt: when Instagram rate-limits this endpoint, retrying it
+             # makes the whole download wait out the 429 back-off before the fallback
+@@ -1253,9 +1259,6 @@
+             # otherwise.
+             if isinstance(err, AbortDownloadException) and not _is_action_block(err):
+                 raise
+-            fallback = cls._feed_node(context, username=username) or cls._page_node(context, username)
+-            if fallback is not None:
+-                return fallback
+             if isinstance(err, QueryReturnedBadRequestException):
+                 raise ProfileNotExistsException(
+                     "Profile {} could not be retrieved (Instagram responded with HTTP 400).{}".format(

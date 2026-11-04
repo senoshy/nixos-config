@@ -21,8 +21,8 @@ in {
 
     home.pointerCursor = {
       enable = true;
-      package = pkgs.whitesur-cursors;
-      name = "WhiteSur-cursors";
+      package = pkgs.macos-tahoe-cursors;
+      name = "MacOS-Tahoe-Cursor";
       size = 24;
     };
 
@@ -72,6 +72,9 @@ in {
     ];
 
     home.file."${config.home.homeDirectory}/.config/kdeglobals".text = ''
+      [General]
+      ColorScheme=BreezeDark
+
       [Icons]
       Theme=Papirus-Dark
 
@@ -92,6 +95,37 @@ in {
       [Appearance]
       style=windows
       icon_theme=Papirus-Dark
+    '';
+
+    home.activation.removeOldThemeLeftovers = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      $DRY_RUN_CMD rm -rf -- \
+        "$HOME/.cache/caelestia" \
+        "$HOME/.cache/quickshell" \
+        "$HOME/.cache/hellwal" \
+        "$HOME/.config/qtengine" \
+        "$HOME/.config/spicetify/Themes/caelestia" \
+        "$HOME/.config/btop/themes/caelestia.theme" \
+        "$HOME/.config/zed/themes/caelestia.json" \
+        "$HOME/.config/Equicord/themes/caelestia.theme.css" \
+        "$HOME/.config/Vencord/themes/caelestia.theme.css" \
+        "$HOME/.config/BetterDiscord/themes/caelestia.theme.css" \
+        "$HOME/.config/equibop/themes/caelestia.theme.css" \
+        "$HOME/.config/vesktop/themes/caelestia.theme.css" \
+        "$HOME/.config/legcord/themes/caelestia.theme.css" \
+        "$HOME/.local/share/PandoraLauncher/themes/caelestia.json" \
+        "$HOME/.local/share/warp-terminal/themes/caelestia.yaml" \
+        "$HOME/.config/nvim/lua/caelestia.lua" \
+        "$HOME/.config/nvim/colors/caelestia.lua" \
+        "$HOME/.config/nvim/lua/lualine/themes/caelestia.lua" \
+        "$HOME/.config/sway" \
+        "$HOME/.config/labwc" \
+        "$HOME/.config/lxqt" \
+        "$HOME/.config/pcmanfm-qt" \
+        "$HOME/.config/fuzzel"
+      $DRY_RUN_CMD rm -f -- \
+        "$HOME"/.config/hypr/src/*.bak \
+        "$HOME"/.config/hypr/src/*.back \
+        "$HOME"/.config/hypr/src/*.bask
     '';
   };
 }

@@ -24,11 +24,6 @@ in {
         telemetry = {
           metrics = false;
         };
-        theme = {
-          mode = "light";
-          dark = "Caelestia";
-          light = "Caelestia";
-        };
       };
     };
   };

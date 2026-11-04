@@ -5,19 +5,21 @@
   ...
 }: let
   cfg = config.system.interface;
-  cursorPackage = pkgs.whitesur-cursors;
-  cursorThemeName = "WhiteSur-cursors";
+  cursorPackage = pkgs.macos-tahoe-cursors;
+  cursorThemeName = "MacOS-Tahoe-Cursor";
 in {
   options.system.interface = {
     enable = lib.mkEnableOption "sddm, hyprland, and gnome-keyring";
   };
 
   config = lib.mkIf cfg.enable {
+    services.displayManager.defaultSession = lib.mkDefault "hyprland-uwsm";
+
     services.displayManager.sddm = {
       enable = lib.mkDefault true;
       wayland = {
         enable = lib.mkDefault true;
-        compositor = "kwin";
+        compositor = lib.mkDefault "kwin";
       };
       settings = {
         Theme = {
@@ -35,16 +37,7 @@ in {
 
     programs.qylock = {
       enable = true;
-      theme = "enfield";
-      themeOptions = {
-        terraria.backgroundMode = "time";
-        Genshin.backgroundMode = "time";
-        clockwork.orbital = {
-          themeMode = "dark";
-          enableWindup = true;
-        };
-        osu.gameMode = "menu";
-      };
+      theme = "nier-automata";
     };
 
     services.gnome.gnome-keyring.enable = lib.mkDefault true;
@@ -56,15 +49,8 @@ in {
     };
 
     environment.systemPackages = with pkgs; [
-      xinit
       cursorPackage
       gnome-epub-thumbnailer
-      kdePackages.kwindowsystem
-      kdePackages.qt5compat
-      kdePackages.qtmultimedia
-      qt5.qtgraphicaleffects
-      qt5.qtquickcontrols
-      qt5.qtsvg
     ];
 
     environment.sessionVariables = {

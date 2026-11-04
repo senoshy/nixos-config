@@ -258,11 +258,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792547236,
-        "narHash": "sha256-mBUCy02HLE3GpOlYJ3PclnrsPkCer6rJvLpK+bggmKU=",
+        "lastModified": 1793651226,
+        "narHash": "sha256-UzYPUUqazgI3W6U9FJRXGYycgA+d/lu9EsFcq0D5lqw=",
         "owner": "senoshy",
         "repo": "nvim-config",
-        "rev": "5d6284d1db3aef9a6a634976212c31f30a924742",
+        "rev": "e567280557f8bf97018021677c05c3392f3f8faa",
         "type": "github"
       },
       "original": {
@@ -302,8 +302,7 @@
         "nvim-config": "nvim-config",
         "qylock": "qylock",
         "sf-mono-liga-src": "sf-mono-liga-src",
-        "sops-nix": "sops-nix",
-        "spotifast": "spotifast"
+        "sops-nix": "sops-nix"
       }
     },
     "rust-analyzer-src": {
@@ -320,27 +319,6 @@
         "owner": "rust-lang",
         "ref": "nightly",
         "repo": "rust-analyzer",
-        "type": "github"
-      }
-    },
-    "rust-overlay": {
-      "inputs": {
-        "nixpkgs": [
-          "spotifast",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1787834454,
-        "narHash": "sha256-jXSvqn04IOecJCvSvl8+g3PsbDVNP6qKs6dKUs/b16k=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "dc2fd1acc537f3583744e1373597a5731ff7a6e3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
         "type": "github"
       }
     },
@@ -377,27 +355,6 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
-        "type": "github"
-      }
-    },
-    "spotifast": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay"
-      },
-      "locked": {
-        "lastModified": 1793551189,
-        "narHash": "sha256-XYKD6bAUrMiTYCxlLOmAPjYS/S/BH50fh1Ou2/ljMys=",
-        "owner": "crmne",
-        "repo": "spotifast",
-        "rev": "758651b198d851783444da8db3ce764eeb29bc32",
-        "type": "github"
-      },
-      "original": {
-        "owner": "crmne",
-        "repo": "spotifast",
         "type": "github"
       }
     },

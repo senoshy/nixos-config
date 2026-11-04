@@ -20,4 +20,6 @@ hl.device({
 hl.device({
   name = "elan-touchpad",
   enabled = true,
+  sensitivity = 0.0,
+  accel_profile = "flat",
 })

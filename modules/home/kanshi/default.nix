@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.home.kanshi;
@@ -19,14 +20,18 @@ in {
             outputs = [
               {
                 criteria = "HDMI-A-1";
-                mode = "1920x1080@120Hz";
+                status = "enable";
+                mode = "1920x1080@60.00Hz";
+                position = "1366,0";
               }
               {
                 criteria = "eDP-1";
-                status = "disable";
+                status = "enable";
+                mode = "1366x768@59.97Hz";
+                position = "0,0";
               }
             ];
-            #exec = [(toString ./kanshi-workspaces)];
+            exec = [(toString ./kanshi-workspaces)];
           };
         }
         {

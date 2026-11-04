@@ -11,14 +11,6 @@ in {
   };
   config = lib.mkIf cfg.enable {
     boot.kernelParams = ["kvm.ignore_msrs=1"];
-    virtualisation.libvirtd = {
-      enable = true;
-      qemu = {
-        package = pkgs.qemu_kvm;
-        runAsRoot = true;
-        swtpm.enable = true;
-      };
-    };
 
     virtualisation.docker.enable = true;
 
