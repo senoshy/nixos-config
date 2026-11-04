@@ -67,5 +67,12 @@
       url = "github:Darkkal44/qylock";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Plain repo (no flake.nix). Base preferences for the Firefox profile;
+    # `nix flake update betterfox` follows upstream releases.
+    betterfox = {
+      url = "github:yokoffing/Betterfox";
+      flake = false;
+    };
   };
 }

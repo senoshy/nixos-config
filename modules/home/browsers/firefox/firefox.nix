@@ -2,12 +2,16 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: let
   cfg = config.home.browsers;
-  userJSContent =
-    # (builtins.readFile ./betterfox.js) + "\n" +
-    builtins.readFile ./user.js;
+
+  # Betterfox ships a plain user.js plus a trailing "MY OVERRIDES" section.
+  # Home Manager emits preConfig first and settings right after it, so the
+  # preferences below still take precedence over Betterfox's defaults.
+  betterfoxPrefs = builtins.readFile "${inputs.betterfox}/user.js";
+  userJSContent = builtins.readFile ./user.js;
 
   parseUserJS = content: let
     lines = lib.splitString "\n" content;
@@ -61,9 +65,10 @@ in {
         "senoshy" = {
           id = 0;
           isDefault = true;
+          preConfig = betterfoxPrefs;
           settings = parseUserJS userJSContent;
           userChrome = ''
-            :root,
+                      :root,
             #navigator-toolbox,
             #sidebar-main,
             #sidebar-box,
