@@ -31,22 +31,31 @@ in {
       platformTheme.name = "qt6ct";
     };
 
-    gtk.enable = true;
-    gtk.font = {
-      name = "Tahoma";
-      size = 9;
-    };
-    gtk.theme = {
-      name = "adw-gtk3";
-      package = pkgs.adw-gtk3;
-    };
-    gtk.cursorTheme = {
-      name = config.home.pointerCursor.name;
-      package = config.home.pointerCursor.package;
-    };
-    gtk.iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
+    gtk = {
+      enable = true;
+
+      gtk3.extraConfig.gtk-decoration-layout = "";
+      gtk4.extraConfig.gtk-decoration-layout = "";
+
+      font = {
+        name = "Tahoma";
+        size = 9;
+      };
+
+      theme = {
+        name = "adw-gtk3";
+        package = pkgs.adw-gtk3;
+      };
+
+      cursorTheme = {
+        name = config.home.pointerCursor.name;
+        package = config.home.pointerCursor.package;
+      };
+
+      iconTheme = {
+        name = "Papirus-Dark";
+        package = pkgs.papirus-icon-theme;
+      };
     };
 
     home.packages = with pkgs; [
