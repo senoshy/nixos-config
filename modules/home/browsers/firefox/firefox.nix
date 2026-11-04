@@ -66,7 +66,52 @@ in {
           id = 0;
           isDefault = true;
           preConfig = betterfoxPrefs;
-          settings = parseUserJS userJSContent;
+          # `//` is right-biased, so these win over the same keys in user.js.
+          settings =
+            parseUserJS userJSContent
+            // {
+              # Use the "system" title bar. On Hyprland nothing draws it,
+              # so the minimize/maximize/close buttons disappear.
+              "browser.tabs.inTitlebar" = 0;
+
+              # Needed for the userChrome.css below.
+              "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+              # Toolbar layout (back/forward on the left, in the right order).
+              "browser.uiCustomization.state" = builtins.toJSON {
+                placements = {
+                  widget-overflow-fixed-list = [];
+                  unified-extensions-area = [];
+                  nav-bar = [
+                    "back-button"
+                    "forward-button"
+                    "stop-reload-button"
+                    "urlbar-container"
+                    "downloads-button"
+                    "unified-extensions-button"
+                  ];
+                  toolbar-menubar = ["menubar-items"];
+                  TabsToolbar = [
+                    "tabbrowser-tabs"
+                    "new-tab-button"
+                    "alltabstoolbar"
+                  ];
+                  vertical-tabs = [];
+                  PersonalToolbar = ["personal-bookmarks"];
+                };
+                seen = ["developer-button"];
+                dirtyAreaCache = [
+                  "nav-bar"
+                  "PersonalToolbar"
+                  "toolbar-menubar"
+                  "TabsToolbar"
+                  "unified-extensions-area"
+                  "vertical-tabs"
+                ];
+                currentVersion = 20;
+                newElementCount = 2;
+              };
+            };
           userChrome = ''
                       :root,
             #navigator-toolbox,
@@ -81,6 +126,11 @@ in {
             .tab-text,
             tab {
               font-family: "Open Sans", sans-serif !important;
+            }
+
+            /* Fallback in case the window controls still show. */
+            .titlebar-buttonbox-container {
+              display: none !important;
             }
           '';
           userContent = ''
