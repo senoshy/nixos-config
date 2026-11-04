@@ -73,3 +73,7 @@ hl.config({
         direct_scanout = 2,
     },
 })
+
+-- wallust rewrites this file on every wallpaper change; the static colours
+-- above are the fallback for when it does not exist yet.
+pcall(dofile, os.getenv("HOME") .. "/.cache/wallust/hyprland-colors.lua")

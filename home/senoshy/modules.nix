@@ -11,6 +11,7 @@
     media
     hyprland
     waybar
+    wallust
     rofi
     kanshi
     kitty
@@ -24,6 +25,7 @@
   home.browsers.chromium.enable = true;
   home.hyprland.enable = true;
   home.waybar.enable = true;
+  home.wallust.enable = true;
   home.rofi.enable = true;
   home.kanshi.enable = true;
   home.kitty.enable = true;

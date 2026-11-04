@@ -27,6 +27,7 @@
       theme = import ./home/theme;
       hyprland = import ./home/hyprland;
       waybar = import ./home/waybar;
+      wallust = import ./home/wallust;
       rofi = import ./home/rofi;
       kitty = import ./home/kitty;
       gpg = import ./home/gpg;

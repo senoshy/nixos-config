@@ -1,0 +1,12 @@
+# wallust 3.x configuration. `template` paths are relative to the `templates`
+# directory next to this file (~/.config/wallust/templates).
+backend = "fastresize"
+color_space = "lab"
+palette = "dark16"
+check_contrast = true
+saturation = 15
+
+[templates]
+waybar = { template = "waybar-colors.css", target = "~/.cache/wallust/colors-waybar.css" }
+hyprland = { template = "hyprland-colors.lua", target = "~/.cache/wallust/hyprland-colors.lua" }
+rofi = { template = "rofi-colors.rasi", target = "~/.cache/wallust/colors-rofi.rasi" }

@@ -1,17 +1,16 @@
 /* ── palette ─────────────────────────────────────────────────────────── */
-@define-color bg rgba(16, 12, 28, 0.60);
-/* blurred bar surface */
-@define-color fg #f4f2fb;
-@define-color fg-dim rgba(244, 242, 251, 0.66);
-@define-color accent #8b5cf6;
-/* tw violet-500 */
-@define-color accent-hi #c4b5fd;
-/* tw violet-300 */
+/* wallust_* are defined by the @import that default.nix prepends. The Waybar
+   wrapper seeds a Catppuccin fallback first, so the import always resolves. */
+@define-color bg @wallust_bg;
+@define-color fg @wallust_fg;
+@define-color fg-dim alpha(@wallust_fg, 0.66);
+@define-color accent @wallust_accent1;
+@define-color accent-hi @wallust_accent2;
 @define-color danger #fb7185;
 /* tw rose-400 */
-@define-color hairline rgba(139, 92, 246, 0.25);
+@define-color hairline @wallust_hairline;
 @define-color hover rgba(255, 255, 255, 0.07);
-@define-color pill rgba(139, 92, 246, 0.22);
+@define-color pill @wallust_pill;
 
 /* ── base ────────────────────────────────────────────────────────────── */
 * {
