@@ -38,8 +38,6 @@ in {
         '')
 
         (lib.mkOrder 1000 ''
-          (( $+commands[eza] )) && alias ls='eza'
-
           typeset -g ABBR_QUIET=1
           source ${pkgs.zsh-abbr}/share/zsh/zsh-abbr/zsh-abbr.zsh
           abbr nf='nix flake update'

@@ -8,8 +8,9 @@ if [[ ! -d /nix ]]; then
 
     bindkey "^[[1;5C" forward-word
     bindkey "^[[1;5D" backward-word
-    (( $+commands[eza] ))    && alias ls='eza --icons'
 fi
+
+(( $+commands[eza] ))    && alias ls='eza --icons'
 
 alias e='nvim'
 
