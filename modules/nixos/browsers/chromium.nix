@@ -170,46 +170,31 @@ in {
       };
     };
 
-    environment.etc."brave/policies/managed/debloat.json".text = builtins.toJSON {
-      BraveRewardsDisabled = true;
-      BraveWalletDisabled = true;
-      BraveVPNDisabled = true;
-      BraveAIChatEnabled = false;
-      BraveLeoEnabled = false;
-      BraveNewsDisabled = true;
-      TorDisabled = true;
-    };
-
-    environment.etc."brave/policies/managed/usability.json".text = builtins.toJSON {
-      DefaultSearchProviderEnabled = true;
-      DefaultSearchProviderName = "DuckDuckGo";
-      DefaultSearchProviderSearchURL = "https://duckduckgo.com/?q={searchTerms}";
-      DefaultSearchProviderSuggestURL = "https://duckduckgo.com/ac/?q={searchTerms}&type=list";
-      DefaultSearchProviderKeyword = "ddg";
-
-      SiteSearchSettings = search.engines;
-
-      ManagedBookmarks = [{toplevel_name = "Bookmarks";}] ++ bookmarks;
-
-      HomepageLocation = "https://duckduckgo.com";
-      HomepageIsNewTabPage = false;
-      ShowHomeButton = true;
-      BookmarkBarEnabled = true;
-    };
-
-    environment.systemPackages = [
-      (pkgs.brave.override {
-        commandLineArgs = [
-          "--disable-features=BraveRewards,BraveWallet,BraveVPN,BraveNews,BraveTalk,BraveAIChat,BravePlaylist,Speedreader,BraveP3A,BraveWebDiscoveryNative"
-          "--disable-search-engine-choice-screen"
-          "--disable-sync-preferences"
-          "--no-default-browser-check"
-          "--enable-features=VaapiVideoDecoder,VaapiVideoEncoder"
-          "--ignore-gpu-blocklist"
-          "--enable-zero-copy"
-          "--enable-gpu-rasterization"
-        ];
-      })
-    ];
+    # environment.etc."brave/policies/managed/debloat.json".text = builtins.toJSON {
+    #   BraveRewardsDisabled = true;
+    #   BraveWalletDisabled = true;
+    #   BraveVPNDisabled = true;
+    #   BraveAIChatEnabled = false;
+    #   BraveLeoEnabled = false;
+    #   BraveNewsDisabled = true;
+    #   TorDisabled = true;
+    # };
+    #
+    # environment.etc."brave/policies/managed/usability.json".text = builtins.toJSON {
+    #   DefaultSearchProviderEnabled = true;
+    #   DefaultSearchProviderName = "DuckDuckGo";
+    #   DefaultSearchProviderSearchURL = "https://duckduckgo.com/?q={searchTerms}";
+    #   DefaultSearchProviderSuggestURL = "https://duckduckgo.com/ac/?q={searchTerms}&type=list";
+    #   DefaultSearchProviderKeyword = "ddg";
+    #
+    #   SiteSearchSettings = search.engines;
+    #
+    #   ManagedBookmarks = [{toplevel_name = "Bookmarks";}] ++ bookmarks;
+    #
+    #   HomepageLocation = "https://duckduckgo.com";
+    #   HomepageIsNewTabPage = false;
+    #   ShowHomeButton = true;
+    #   BookmarkBarEnabled = true;
+    # };
   };
 }
