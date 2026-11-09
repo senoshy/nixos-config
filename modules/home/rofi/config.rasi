@@ -2,7 +2,7 @@
 
 configuration {
 	modi: "drun";
-	font: "JetBrainsMono Nerd Font 10";
+	font: "Liga SFMono Nerd Font 10";
 	show-icons: false;
 	terminal: "kitty";
 	icon-theme: "Papirus-Dark";
@@ -72,7 +72,7 @@ inputbar {
 
 prompt {
     text-color: @accent;
-    font: "JetBrainsMono Nerd Font 10";
+    font: "Liga SFMono Nerd Font 10";
 }
 
 entry {
