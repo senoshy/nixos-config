@@ -287,6 +287,27 @@
         "type": "github"
       }
     },
+    "obsidian-extensions": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": "treefmt-nix"
+      },
+      "locked": {
+        "lastModified": 1794138293,
+        "narHash": "sha256-bwfioPML6GWpM4PZ80qMDZDBoxLPbI3mm7UYyKcy3OU=",
+        "owner": "karaolidis",
+        "repo": "nix-obsidian-extensions",
+        "rev": "5b5d9dced43d8d0d254d7a0ca177cd2688203e82",
+        "type": "github"
+      },
+      "original": {
+        "owner": "karaolidis",
+        "repo": "nix-obsidian-extensions",
+        "type": "github"
+      }
+    },
     "qylock": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -317,6 +338,7 @@
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs",
         "nvim-config": "nvim-config",
+        "obsidian-extensions": "obsidian-extensions",
         "qylock": "qylock",
         "sf-mono-liga-src": "sf-mono-liga-src",
         "sops-nix": "sops-nix"
@@ -387,6 +409,27 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "treefmt-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "obsidian-extensions",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785360170,
+        "narHash": "sha256-XE1lKgQ3eIO3E7zWryqcRsax+mYXod/5RHBn4YaR9YE=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "d1187f8bc71fb8aab02395869ec3f5c1920f75c0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
         "type": "github"
       }
     }
