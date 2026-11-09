@@ -58,6 +58,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Third-party package set for Obsidian community plugins; nixpkgs and
+    # Home Manager do not ship one.
+    obsidian-extensions = {
+      url = "github:karaolidis/nix-obsidian-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     sf-mono-liga-src = {
       url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
       flake = false;
