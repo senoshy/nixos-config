@@ -71,6 +71,7 @@
       "video"
       "audio"
       "docker"
+      "adbusers"
     ];
   };
 
@@ -82,6 +83,7 @@
   environment.systemPackages = with pkgs; [
     libva-utils
     config.boot.kernelPackages.cpupower
+    android-tools
   ];
 
   hardware.graphics = {
