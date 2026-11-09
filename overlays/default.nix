@@ -32,6 +32,13 @@
     patches = (old.patches or []) ++ [./thunar-icon-view-ellipsize.patch];
   });
 
+  # TODO: drop once nixpkgs ships waybar >= 0.16.0 (the fix is in that release).
+  # 0.15.0 hands tray menu accelerators to a NULL accel group, so items such as
+  # Mattermost trigger Gtk-CRITICALs and can leave the menu in a bad state.
+  waybar = prev.waybar.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [./waybar-tray-accel-group.patch];
+  });
+
   instaloader = prev.instaloader.overrideAttrs (old: {
     version = "4.15.3";
     src = prev.fetchFromGitHub {
@@ -75,8 +82,33 @@
     '';
   };
 
+  # TODO: drop once nixos-unstable ships vencord >= 1.15.14 (nixpkgs commit 19375cd).
+  # 1.15.13 cannot patch Discord 1.0.168's new rspack bundle, which breaks
+  # Vencord patches with "TypeError: i.A is not a constructor".
+  vencord = prev.vencord.overrideAttrs (_: let
+    src = prev.fetchFromGitHub {
+      owner = "Vendicated";
+      repo = "Vencord";
+      tag = "v1.15.16";
+      hash = "sha256-aUJubLJpyLAZWiOezqFxPY6oVPgWVPQpajFqrJvrO9U=";
+    };
+  in {
+    version = "1.15.16";
+    inherit src;
+    patches = [];
+    postPatch = "";
+    pnpmDeps = prev.fetchPnpmDeps {
+      pname = "vencord";
+      inherit src;
+      pnpm = prev.pnpm_11;
+      fetcherVersion = 4;
+      hash = "sha256-HS8uZNepvDefjrsG3buVLFCVv7sHvazcwdpcT3EQ/78=";
+    };
+  });
+
   discord = prev.discord.override {
     withVencord = true;
+    vencord = final.vencord;
     commandLineArgs = "--enable-features=AcceleratedVideoEncoder,AcceleratedVideoDecodeLinuxGL,WaylandWindowDecorations --ignore-gpu-blocklist";
   };
 
