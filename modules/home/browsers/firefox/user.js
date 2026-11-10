@@ -143,3 +143,6 @@ user_pref("permissions.default.xr", 2);
 
 // local network access: allow without prompting
 user_pref("network.lna.blocking", false);
+
+// remove pop out video
+user_pref("media.videocontrols.picture-in-picture.video-toggle-enabled", false);
