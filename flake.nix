@@ -33,6 +33,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    hyprland = {
+      url = "github:hyprwm/Hyprland/v0.57.2";
+      inputs.nixpkgs.url = "github:nixos/nixpkgs/f4a03c008967841f2a0b3cb7c436fc6fc31671f6";
+    };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -58,8 +63,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Third-party package set for Obsidian community plugins; nixpkgs and
-    # Home Manager do not ship one.
     obsidian-extensions = {
       url = "github:karaolidis/nix-obsidian-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -75,8 +78,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Plain repo (no flake.nix). Base preferences for the Firefox profile;
-    # `nix flake update betterfox` follows upstream releases.
     betterfox = {
       url = "github:yokoffing/Betterfox";
       flake = false;

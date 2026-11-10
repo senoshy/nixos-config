@@ -1,4 +1,11 @@
 {inputs, ...}: final: prev: {
+  # TODO: drop once nixpkgs-unstable ships hyprland >= 0.57.2.
+  # 0.57.1 runs the compositor under realtime scheduling, which upstream says
+  # causes crashes under heavy load; 0.57.2 drops that and makes
+  # start-hyprland report the exit signal/code, which 0.57.1 silently swallows.
+  # The upstream flake also pins a newer aquamarine than nixpkgs 0.16.0.
+  hyprland = inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
+
   sf-mono-liga-bin = prev.stdenvNoCC.mkDerivation {
     pname = "sf-mono-liga-bin";
     version = "dev";
