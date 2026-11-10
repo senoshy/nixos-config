@@ -19,7 +19,7 @@ hl.bind(mainMod .. " + L", function()
     end
 end)
 
-hl.bind(mainMod .. " + P", hl.dsp.exec_cmd('hyprshot -m region --freeze'))
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd('env HYPRSHOT_DIR=$HOME/pictures/Screenshots hyprshot -m region --freeze'))
 
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
